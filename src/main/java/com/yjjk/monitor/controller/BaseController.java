@@ -53,28 +53,6 @@ public class BaseController {
     protected static Integer REPEATER_MANAGE = 5;
 
 
-    @Resource
-    protected ManagerService managerService;
-    @Resource
-    protected MachineService machineService;
-    @Resource
-    protected HospitalService hospitalService;
-    @Resource
-    protected PatientService patientService;
-    @Resource
-    protected PatientRecordService patientRecordService;
-    @Resource
-    protected LoginStateService loginStateService;
-    @Resource
-    protected RepeaterService repeaterService;
-    @Resource
-    protected TemperatureBoundService temperatureBoundService;
-    @Resource
-    protected BoxService boxService;
-    @Resource
-    protected EcgService ecgService;
-
-
 
 
     /**
