@@ -174,7 +174,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!-- 工程主入口-->
-                    <mainClass>com.yjjk.monitor.MonitorApplication</mainClass>
+                    <mainClass>com.yjjk.monitor.ErpApplication</mainClass>
                 </configuration>
             </plugin>
 
