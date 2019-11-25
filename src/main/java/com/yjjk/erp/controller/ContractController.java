@@ -1,6 +1,10 @@
 package com.yjjk.erp.controller;
 
-import org.springframework.stereotype.Controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @program: YjjkErp
@@ -8,6 +12,9 @@ import org.springframework.stereotype.Controller;
  * @author: CentreS
  * @create: 2019-11-25 19:22:49
  **/
-@Controller
+@RestController
+@RequestMapping("/Contract")
 public class ContractController extends BaseController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserController.class);
+	
 }

@@ -9,5 +9,4 @@ import org.springframework.stereotype.Service;
  * @create: 2019-11-25 19:42:20
  **/
 @Service
-public interface ContractService{
-}
+public class ContractService{}
