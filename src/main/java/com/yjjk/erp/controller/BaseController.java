@@ -15,9 +15,17 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
 import com.yjjk.erp.filter.AliValueFilter;
+import com.yjjk.erp.service.CompanyService;
+import com.yjjk.erp.service.ContractService;
+import com.yjjk.erp.service.FranchiserService;
+import com.yjjk.erp.service.HospitalService;
+import com.yjjk.erp.service.ManagerService;
+import com.yjjk.erp.service.RateService;
+import com.yjjk.erp.service.RecordService;
 import com.yjjk.erp.utility.ResultUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -51,8 +59,20 @@ public class BaseController {
     protected static Integer ACCOUNT_MANAGE = 4;
     protected static Integer REPEATER_MANAGE = 5;
 
-
-
+    @Autowired
+    protected CompanyService companyService;
+    @Autowired
+    protected ContractService contractService;
+    @Autowired
+    protected FranchiserService franchiserService;
+    @Autowired
+    protected HospitalService hospitalService;
+    @Autowired
+    protected ManagerService managerService;
+    @Autowired
+    protected RateService rateService;
+    @Autowired
+    protected RecordService recordService;
 
     /**
      * WEB端返回值，判断是否过期
