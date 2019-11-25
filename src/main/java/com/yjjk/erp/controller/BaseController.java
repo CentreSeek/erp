@@ -62,17 +62,18 @@ public class BaseController {
     @Autowired
     protected CompanyService companyService;
     @Autowired
-    protected ContractService contractService;
-    @Autowired
-    protected FranchiserService franchiserService;
-    @Autowired
     protected HospitalService hospitalService;
     @Autowired
     protected ManagerService managerService;
     @Autowired
+    protected ContractService contractService;
+    @Autowired
+    protected FranchiserService franchiserService;
+    @Autowired
     protected RateService rateService;
     @Autowired
     protected RecordService recordService;
+    
 
     /**
      * WEB端返回值，判断是否过期
