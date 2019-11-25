@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(value = "com.yjjk.monitor.mapper")
+@MapperScan({"com.yjjk.monitor.dao","com.yjjk.monitor.mapper"})
 public class ErpApplication {
 
 
