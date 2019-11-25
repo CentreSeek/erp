@@ -1,6 +1,5 @@
 package com.yjjk.erp.aspect;
 
-import com.yjjk.erp.service.LoginStateService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -20,8 +19,7 @@ import java.util.Arrays;
 public class WeblogAspect
 {
     static final Logger logger = LoggerFactory.getLogger(WeblogAspect.class);
-    @Resource
-    LoginStateService loginStateService;
+
 
     @Pointcut("execution(public * com.yjjk.erp.controller.*.*(..))")
     private void controllerAspect() {}
