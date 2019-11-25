@@ -1,13 +1,10 @@
 package com.yjjk.erp.entity.pojo;
 
-import lombok.experimental.Accessors;
-
 import javax.persistence.Column;
 import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "erp_franchiser_info")
-@Accessors(chain = true)
 public class ErpFranchiserInfo {
     /**
      * 主键
@@ -15,8 +12,7 @@ public class ErpFranchiserInfo {
     @Column(name = "franchiser_id")
     private Integer franchiserId;
 
-    @Column(name = "company_id")
-    private Integer companyId;
+    private String name;
 
     private String password;
 
@@ -55,17 +51,17 @@ public class ErpFranchiserInfo {
     }
 
     /**
-     * @return company_id
+     * @return name
      */
-    public Integer getCompanyId() {
-        return companyId;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param companyId
+     * @param name
      */
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

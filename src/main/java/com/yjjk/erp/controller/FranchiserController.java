@@ -1,5 +1,4 @@
 package com.yjjk.erp.controller;
-
 import java.util.List;
 
 import javax.validation.Valid;
@@ -29,9 +28,7 @@ import io.swagger.annotations.ApiOperation;
  * @create: 2019-11-25 19:19:11
  **/
 @RestController
-@RequestMapping("/Franchiser")
-public class FranchiserController extends BaseController {
-
+@RequestMapping("/Franchiser")public class FranchiserController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserController.class);
 
 	/**
@@ -171,5 +168,4 @@ public class FranchiserController extends BaseController {
 
 		}
 	}
-
 }

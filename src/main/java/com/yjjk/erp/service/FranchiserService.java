@@ -112,5 +112,4 @@ public class FranchiserService extends SmallBaseService {
 		return false;
 	}
 	
-	
-}
+	}

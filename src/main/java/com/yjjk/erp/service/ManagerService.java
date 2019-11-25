@@ -9,5 +9,4 @@ import org.springframework.stereotype.Service;
  * @create: 2019-11-25 19:45:09
  **/
 @Service
-public class ManagerService extends SmallBaseService {
-}
+public class ManagerService extends SmallBaseService {}
