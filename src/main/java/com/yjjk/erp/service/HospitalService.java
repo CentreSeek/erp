@@ -1,6 +1,9 @@
 package com.yjjk.erp.service;
 
+import com.yjjk.erp.entity.bo.HospitalInfoBO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @program: YjjkErp
@@ -9,5 +12,13 @@ import org.springframework.stereotype.Service;
  * @create: 2019-11-25 19:44:54
  **/
 @Service
-public class HospitalService{
+public interface HospitalService {
+
+    /***
+     * 范德萨
+     * @param
+     * @Date: 20:34 2019/11/25
+     * @return java.util.List<com.yjjk.erp.entity.bo.HospitalInfoBO>
+     */
+    List<HospitalInfoBO> getHospital();
 }

@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
  * @create: 2019-11-25 19:41:43
  **/
 @Service
-public class CompanyService{
+public interface CompanyService{
 }
