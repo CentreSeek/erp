@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aliyuncs.utils.StringUtils;
 import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
+import com.yjjk.erp.entity.Info.ContractInfo;
 import com.yjjk.erp.entity.Info.FranchiserUserModel;
 import com.yjjk.erp.entity.wx.WechatModel;
 import com.yjjk.erp.utility.ResultUtil;
@@ -103,10 +104,10 @@ public class FranchiserController extends BaseController {
 	 * @return
 	 */
 	@ApiOperation("获取经销商个人信息")
-	@RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
-	public CommonResult getUserInfo(@Valid FranchiserUserModel userModel) {
+	@RequestMapping(value = "/getfranchiserInfo", method = RequestMethod.POST)
+	public CommonResult getfranchiserInfo(@Valid FranchiserUserModel userModel) {
 		try {
-			return franchiserService.getUserInfo(userModel.getFranchiserId());
+			return franchiserService.getfranchiserInfo(userModel.getFranchiserId());
 
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -151,6 +152,24 @@ public class FranchiserController extends BaseController {
 
 		}
 	}
+	
+	/**
+	 * 经销商停用
+	 * 
+	 * @return
+	 */
+	@ApiOperation("经销商停用")
+	@RequestMapping(value = "/updateFran", method = RequestMethod.GET)
+	public CommonResult updateFran() {
+		try {
+			 franchiserService.updateFran();
+			return ResultUtil.returnSuccess("");
+		} catch (Exception e) {
+			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
+			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+
+		}
+	}
 
 	/**
 	 * 小程序退出登录
@@ -163,6 +182,25 @@ public class FranchiserController extends BaseController {
 		try {
 			boolean isTrue = franchiserService.XCXLoginOut(userModel);
 			return ResultUtil.returnSuccess("", "退出成功");
+		} catch (Exception e) {
+			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
+			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+
+		}
+	}
+	
+
+	/**
+	 * 获取与经销商无关的公司列表
+	 * 
+	 * @return
+	 */
+	@ApiOperation("获取与经销商无关的公司列表")
+	@RequestMapping(value = "/getCompanyList", method = RequestMethod.POST)
+	public CommonResult getCompanyList(@RequestParam(value = "id") Integer id) {
+		try {
+			List<ContractInfo> companys = franchiserService.getCompanyList(id);
+			return ResultUtil.returnSuccess(companys);
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
 			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);

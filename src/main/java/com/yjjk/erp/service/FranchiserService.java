@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.yjjk.erp.configer.CommonResult;
+import com.yjjk.erp.entity.Info.ContractInfo;
 import com.yjjk.erp.entity.Info.FranchiserUserModel;
 import com.yjjk.erp.entity.wx.WechatModel;
 import com.yjjk.erp.utility.wx.WebClientUtil;
@@ -56,9 +57,11 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
-	public String FranBindingCom(@Valid FranchiserUserModel userModel) {
-		// TODO Auto-generated method stub
-		return null;
+	public void FranBindingCom(FranchiserUserModel userModel) {
+		for (Integer companyId : userModel.getComList()) {
+			franchiserDao.addRelation(companyId,userModel.getFranchiserId());
+		}
+		
 	}
 
 	/**
@@ -66,7 +69,7 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
-	public CommonResult XCXLogin(@Valid FranchiserUserModel userModel) {
+	public CommonResult XCXLogin( FranchiserUserModel userModel) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -76,8 +79,8 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
-	public CommonResult getUserInfo(Integer franchiserId) {
-		// TODO Auto-generated method stub
+	public CommonResult getfranchiserInfo(Integer franchiserId) {
+		FranchiserUserModel user = franchiserDao.getfranchiserInfo(franchiserId);
 		return null;
 	}
 
@@ -87,7 +90,7 @@ public class FranchiserService extends SmallBaseService {
      * @param userModel
      * @return
 	 */
-	public CommonResult addFran(@Valid FranchiserUserModel userModel) {
+	public CommonResult addFran( FranchiserUserModel userModel) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -107,9 +110,18 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
-	public boolean XCXLoginOut(@Valid FranchiserUserModel userModel) {
+	public boolean XCXLoginOut( FranchiserUserModel userModel) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	/**
+	 * 获取与经销商无关的公司列表
+	 * 
+	 * @return
+	 */
+	public List<ContractInfo> getCompanyList(Integer id) {
+		return companyDao.getCompanyList(id);
 	}
 
 
