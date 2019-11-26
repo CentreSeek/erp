@@ -59,10 +59,6 @@ public class BaseController {
     @Autowired
     protected HospitalService hospitalService;
     @Autowired
-    protected ManagerService managerService;
-    @Autowired
-    protected ContractService contractService;
-    @Autowired
     protected FranchiserService franchiserService;
     @Autowired
     protected RateService rateService;
