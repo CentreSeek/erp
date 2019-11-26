@@ -62,4 +62,5 @@ public class ContractService extends SmallBaseService {
 		contractDao.updateContract(userModel);
 	}
 	
+	
 }

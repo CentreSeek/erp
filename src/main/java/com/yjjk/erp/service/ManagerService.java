@@ -21,6 +21,7 @@ import com.yjjk.erp.utility.ResultUtil;
 @Service
 public class ManagerService extends SmallBaseService {
 
+	
 	/**
 	 * 获取管理员列表
 	 * 
