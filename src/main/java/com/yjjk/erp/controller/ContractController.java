@@ -25,6 +25,7 @@ import io.swagger.annotations.ApiOperation;
  * @create: 2019-11-25 19:22:49
  **/
 @RestController
+@RequestMapping("/Contract")
 public class ContractController extends BaseController {
 	
 private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserController.class);

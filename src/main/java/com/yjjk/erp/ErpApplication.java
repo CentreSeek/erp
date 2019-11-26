@@ -8,7 +8,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @EnableScheduling
 @SpringBootApplication
-@MapperScan(value = {"com.yjjk.erp.mapper"})
+@MapperScan({"com.yjjk.erp.dao","com.yjjk.erp.mapper"})
 @ComponentScan(basePackages = {"com.yjjk"})
 public class ErpApplication {
 
