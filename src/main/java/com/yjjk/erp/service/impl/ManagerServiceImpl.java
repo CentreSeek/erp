@@ -1,7 +1,6 @@
 package com.yjjk.erp.service.impl;
 
 import com.yjjk.erp.service.BaseService;
-import com.yjjk.erp.service.ManagerService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,5 +10,5 @@ import org.springframework.stereotype.Service;
  * @create: 2019-11-26 11:59:35
  **/
 @Service
-public class ManagerServiceImpl extends BaseService implements ManagerService {
+public class ManagerServiceImpl extends BaseService {
 }

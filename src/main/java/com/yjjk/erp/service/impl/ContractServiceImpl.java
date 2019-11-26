@@ -1,7 +1,6 @@
 package com.yjjk.erp.service.impl;
 
 import com.yjjk.erp.service.BaseService;
-import com.yjjk.erp.service.ContractService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,5 +10,5 @@ import org.springframework.stereotype.Service;
  * @create: 2019-11-26 11:57:57
  **/
 @Service
-public class ContractServiceImpl extends BaseService implements ContractService {
+public class ContractServiceImpl extends BaseService {
 }
