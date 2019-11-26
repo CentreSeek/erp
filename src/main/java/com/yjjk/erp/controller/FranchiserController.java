@@ -6,16 +6,15 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aliyuncs.utils.StringUtils;
 import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
 import com.yjjk.erp.entity.Info.ContractInfo;
+import com.yjjk.erp.entity.Info.CurrencyModel;
 import com.yjjk.erp.entity.Info.FranchiserUserModel;
 import com.yjjk.erp.entity.wx.WechatModel;
 import com.yjjk.erp.utility.ResultUtil;
@@ -67,9 +66,9 @@ public class FranchiserController extends BaseController {
 	@RequestMapping(value = "/FranBindingCom", method = RequestMethod.POST)
 	public CommonResult FranBindingCom(@Valid FranchiserUserModel userModel) {
 		try {
-			String phone = franchiserService.FranBindingCom(userModel);
+			 franchiserService.FranBindingCom(userModel);
 
-			return ResultUtil.returnSuccess(phone);
+			return ResultUtil.returnSuccess("");
 
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -97,6 +96,24 @@ public class FranchiserController extends BaseController {
 		}
 	}
 
+	/**
+	 * 检查该用户是否登陆过登录
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/checkLogin")
+	@PostMapping
+	public CommonResult checkLogin(@RequestParam(value = "openId") String openId) {
+		try {
+			return franchiserService.checkLogin(openId);
+
+		} catch (Exception e) {
+			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
+			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+
+		}
+	}
+	
 	/**
 	 * 获取经销商个人信息
 	 * 
@@ -142,9 +159,9 @@ public class FranchiserController extends BaseController {
 	 */
 	@ApiOperation("获取经销商列表")
 	@RequestMapping(value = "/getFranList", method = RequestMethod.GET)
-	public CommonResult getFranList() {
+	public CommonResult getFranList(@Valid CurrencyModel userModel) {
 		try {
-			List<FranchiserUserModel> userList = franchiserService.getFranList();
+			List<FranchiserUserModel> userList = franchiserService.getFranList(userModel);
 			return ResultUtil.returnSuccess(userList);
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -160,9 +177,9 @@ public class FranchiserController extends BaseController {
 	 */
 	@ApiOperation("经销商停用")
 	@RequestMapping(value = "/updateFran", method = RequestMethod.GET)
-	public CommonResult updateFran() {
+	public CommonResult updateFran(@RequestParam(value = "id") Integer id) {
 		try {
-			 franchiserService.updateFran();
+			 franchiserService.updateFran(id);
 			return ResultUtil.returnSuccess("");
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -181,7 +198,11 @@ public class FranchiserController extends BaseController {
 	public CommonResult XCXLoginOut(@Valid FranchiserUserModel userModel) {
 		try {
 			boolean isTrue = franchiserService.XCXLoginOut(userModel);
-			return ResultUtil.returnSuccess("", "退出成功");
+			 if(isTrue){
+				 return ResultUtil.returnSuccess("","退出成功");
+			 }else{
+				 return ResultUtil.returnError("300","退出失败");
+			 }
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
 			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
@@ -201,6 +222,30 @@ public class FranchiserController extends BaseController {
 		try {
 			List<ContractInfo> companys = franchiserService.getCompanyList(id);
 			return ResultUtil.returnSuccess(companys);
+		} catch (Exception e) {
+			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
+			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+
+		}
+	}
+	
+	/**
+	 * 确认手机号是否存在
+	 * 
+	 * @return
+	 */
+	@ApiOperation("确认手机号是否存在")
+	@RequestMapping(value = "/checkPhone", method = RequestMethod.POST)
+	public CommonResult checkPhone(@RequestParam(value = "phone") String phone) {
+		try {
+			boolean istrue = franchiserService.checkPhone(phone);
+			if(istrue){
+				return ResultUtil.returnSuccess("");
+			}else{
+				return ResultUtil.returnError("300","已存在");
+			}
+			
+			
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
 			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);

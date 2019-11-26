@@ -27,7 +27,7 @@ public interface CompanyDao {
 	 * @return
 	 */
 	List<ContractInfo> getCompanyList(@Param(value = "id") Integer id);
-	
+
 	
 
 }
