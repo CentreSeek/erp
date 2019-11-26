@@ -33,5 +33,20 @@ public class FranchiserUserModel {
 	 * 手机号
 	 */
 	private String phone;
+	
+	/**
+	 * 微信用户openid
+	 */
+	private String openId;
+	
+	/**
+	 * 创建时间
+	 */
+	private String createTime;
+	
+	/**
+	 * 修改时间
+	 */
+	private String updateTime;
 
 }
