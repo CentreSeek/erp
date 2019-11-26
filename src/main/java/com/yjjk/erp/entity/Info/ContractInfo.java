@@ -8,19 +8,29 @@ import lombok.Setter;
 public class ContractInfo {
 	
 	/**
+	 * 签约编号
+	 */
+	private Integer id;
+	
+	/**
 	 * 协议编号
 	 */
-	private String order_num;
+	private String orderNum;
 	
 	/**
 	 * 公司id
 	 */
-	private Integer company_id;
+	private Integer companyId;
+	
+	/**
+	 * 公司名称
+	 */
+	private String companyName;
 	
 	/**
 	 * 姓名
 	 */
-	private String user_name;
+	private String userName;
 	
 	/**
 	 * 手机号
@@ -30,17 +40,17 @@ public class ContractInfo {
 	/**
 	 * 起始时间
 	 */
-	private String start_date;
+	private String startDate;
 	
 	/**
 	 * 结束时间
 	 */
-	private String end_date;
+	private String endDate;
 	
 	/**
 	 * 合作范围
 	 */
-	private String cooperation_scope;
+	private String cooperationScope;
 	
 	/**
 	 * 管理员id
@@ -53,8 +63,18 @@ public class ContractInfo {
 	private String managerName;
 	
 	/**
+	 * 创建时间
+	 */
+	private String createTime;
+	
+	/**
+	 * 修改时间
+	 */
+	private String updateTime;
+	
+	/**
 	 * 协议状态 0：有效 1：已终止 2：已失效
 	 */
-	private Integer contract_type;
+	private Integer contractType;
 
 }

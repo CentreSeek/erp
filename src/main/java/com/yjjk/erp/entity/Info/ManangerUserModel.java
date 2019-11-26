@@ -22,7 +22,7 @@ public class ManangerUserModel {
 	/**
 	 * 密码
 	 */
-	private String password;
+	private String passWord;
 	
 	/**
 	 * 姓名
@@ -30,8 +30,28 @@ public class ManangerUserModel {
 	private String name;
 	
 	/**
+	 * 性别
+	 */
+	private Integer sex;
+	
+	/**
 	 * 等级
 	 */
 	private Integer gender;
+	
+	/**
+	 * 等级名称
+	 */
+	private String genderName;
+	
+	/**
+	 * 创建时间
+	 */
+	private String createTime;
+	
+	/**
+	 * 修改时间
+	 */
+	private String updateTime;
 	
 }

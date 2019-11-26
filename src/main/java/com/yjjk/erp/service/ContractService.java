@@ -1,10 +1,13 @@
 package com.yjjk.erp.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
 
 import com.yjjk.erp.entity.Info.ContractInfo;
+import com.yjjk.erp.entity.Info.CurrencyModel;
 import com.yjjk.erp.entity.Info.FranchiserUserModel;
 
 /**
@@ -22,9 +25,14 @@ public class ContractService extends SmallBaseService {
 	 * @param userModel
 	 * @return
 	 */
-	public String ManagerList(@Valid ContractInfo userModel) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ContractInfo> contractList(CurrencyModel userModel) {
+		userModel.setStart(userModel.getPage()*userModel.getNumber());
+		userModel.setEnd((userModel.getPage()+1)*userModel.getNumber()-1);
+		List<ContractInfo> list = contractDao.contractList(userModel);
+		for (ContractInfo contractInfo : list) {
+			contractInfo.setStartDate(contractInfo.getStartDate()+"----"+contractInfo.getEndDate());
+		}
+		return list;
 	}
 
 	/**
@@ -33,9 +41,14 @@ public class ContractService extends SmallBaseService {
 	 * @param userModel
 	 * @return
 	 */
-	public String addManager(@Valid ContractInfo userModel) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addContract(ContractInfo userModel) {
+		Integer id = companyDao.getcompanyId(userModel.getCompanyName());
+		if(id == null){
+			companyDao.addCompany(userModel);
+		}else{
+			userModel.setCompanyId(id);
+		}
+		contractDao.addContract(userModel);
 	}
 
 	/**
@@ -44,9 +57,9 @@ public class ContractService extends SmallBaseService {
 	 * @param userModel
 	 * @return
 	 */
-	public String updateManager(@Valid ContractInfo userModel) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateContract(ContractInfo userModel) {
+		userModel.setUpdateTime(getAllTime());
+		contractDao.updateContract(userModel);
 	}
 	
 }

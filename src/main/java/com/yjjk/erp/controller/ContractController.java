@@ -1,6 +1,8 @@
 package com.yjjk.erp.controller;
 
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
 import com.yjjk.erp.entity.Info.ContractInfo;
+import com.yjjk.erp.entity.Info.CurrencyModel;
 import com.yjjk.erp.entity.Info.FranchiserUserModel;
 import com.yjjk.erp.utility.ResultUtil;
 
@@ -35,12 +38,12 @@ public class ContractController extends BaseController {
 	 * @return
 	 */
 	@ApiOperation("获取签约列表")
-	@RequestMapping(value = "/ContractList", method = RequestMethod.POST)
-	public CommonResult ContractList(@Valid ContractInfo userModel) {
+	@RequestMapping(value = "/ContractList", method = RequestMethod.GET)
+	public CommonResult ContractList(@Valid CurrencyModel userModel) {
 		try {
-			String phone = contractService.ManagerList(userModel);
+			List<ContractInfo> contractList = contractService.contractList(userModel);
 
-			return ResultUtil.returnSuccess(phone);
+			return ResultUtil.returnSuccess(contractList);
 
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -57,11 +60,10 @@ public class ContractController extends BaseController {
 	 */
 	@ApiOperation("新增签约")
 	@RequestMapping(value = "/addManager", method = RequestMethod.POST)
-	public CommonResult addManager(@Valid ContractInfo userModel) {
+	public CommonResult addContract(@Valid ContractInfo userModel) {
 		try {
-			String phone = contractService.addManager(userModel);
-
-			return ResultUtil.returnSuccess(phone);
+			 contractService.addContract(userModel);
+			return ResultUtil.returnSuccess("");
 
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -78,11 +80,10 @@ public class ContractController extends BaseController {
 	 */
 	@ApiOperation("修改签约")
 	@RequestMapping(value = "/updateManager", method = RequestMethod.POST)
-	public CommonResult updateManager(@Valid ContractInfo userModel) {
+	public CommonResult updateContract(@Valid ContractInfo userModel) {
 		try {
-			String phone = contractService.updateManager(userModel);
-
-			return ResultUtil.returnSuccess(phone);
+			 contractService.updateContract(userModel);
+			return ResultUtil.returnSuccess("");
 
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
