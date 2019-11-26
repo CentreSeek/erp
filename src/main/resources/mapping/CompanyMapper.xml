@@ -21,11 +21,14 @@
 	
 	</insert>
 	
-	<!-- 查询公司列表 -->
+	<!-- 获取与经销商无关的公司列表 -->
 	<select id="getCompanyList" resultType="com.yjjk.erp.entity.Info.ContractInfo">
-		select name,company_id from erp_company_info
+		select a.name,a.company_id 
+		from erp_company_info a,erp_relation_franchiser_company b
 		where 1 = 1 
-		and contract_status = 0
+		and a.contract_status = 0
+		and a.company_id != b.company_id
+		and b.franchiser_id = #{id}
 	</select>
 	
 </mapper>

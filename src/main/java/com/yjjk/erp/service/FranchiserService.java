@@ -3,15 +3,18 @@ package com.yjjk.erp.service;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.yjjk.erp.configer.CommonResult;
+import com.yjjk.erp.constant.ErrorCodeEnum;
 import com.yjjk.erp.entity.Info.ContractInfo;
+import com.yjjk.erp.entity.Info.CurrencyModel;
 import com.yjjk.erp.entity.Info.FranchiserUserModel;
 import com.yjjk.erp.entity.wx.WechatModel;
+import com.yjjk.erp.utility.MD532;
+import com.yjjk.erp.utility.ResultUtil;
 import com.yjjk.erp.utility.wx.WebClientUtil;
 
 /**
@@ -70,8 +73,28 @@ public class FranchiserService extends SmallBaseService {
 	 * @return
 	 */
 	public CommonResult XCXLogin( FranchiserUserModel userModel) {
-		// TODO Auto-generated method stub
-		return null;
+		FranchiserUserModel fran = franchiserDao.checkUser(userModel.getPhone());
+			if (fran != null) {
+				String userPassword = MD532.encode(userModel.getPassword());
+				if (userPassword.equals(fran.getPassword())) {
+					fran.setOpenId(userModel.getOpenId());
+					Integer id = franchiserDao.checkisLogin(userModel.getOpenId());
+					if (id == null) {
+						fran.setCreateTime(getAllTime());
+						franchiserDao.addNewUserToOpenId(fran);
+					} else {
+						fran.setUpdateTime(getAllTime());
+						franchiserDao.updateUserToOpenId(fran);
+					}
+					
+					return getfranchiserInfo(id);
+				} else {
+					return ResultUtil.returnError("300","密码错误");
+				}
+			}else{
+				return ResultUtil.returnError("300","该账号不存在");
+			}
+			
 	}
 	
 	/**
@@ -81,7 +104,7 @@ public class FranchiserService extends SmallBaseService {
 	 */
 	public CommonResult getfranchiserInfo(Integer franchiserId) {
 		FranchiserUserModel user = franchiserDao.getfranchiserInfo(franchiserId);
-		return null;
+		return ResultUtil.returnSuccess(user);
 	}
 
 	/**
@@ -91,8 +114,9 @@ public class FranchiserService extends SmallBaseService {
      * @return
 	 */
 	public CommonResult addFran( FranchiserUserModel userModel) {
-		// TODO Auto-generated method stub
-		return null;
+		userModel.setPassword(MD532.encode("123456"));
+		franchiserDao.addFran(userModel);
+		return ResultUtil.returnSuccess("");
 	}
 
 	/**
@@ -100,9 +124,15 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
-	public List<FranchiserUserModel> getFranList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<FranchiserUserModel> getFranList(CurrencyModel userModel) {
+		userModel.setStart(userModel.getPage()*userModel.getNumber());
+		userModel.setEnd((userModel.getPage()+1)*userModel.getNumber()-1);
+		List<FranchiserUserModel> list = franchiserDao.getFranList(userModel) ;
+		for (FranchiserUserModel franchiserUserModel : list) {
+			String b =franchiserUserModel.getPhone().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
+			franchiserUserModel.setPhone(b);
+		}
+		return list;
 	}
 	
 	/**
@@ -111,8 +141,10 @@ public class FranchiserService extends SmallBaseService {
 	 * @return
 	 */
 	public boolean XCXLoginOut( FranchiserUserModel userModel) {
-		// TODO Auto-generated method stub
-		return false;
+		userModel.setUpdateTime(getAllTime());
+		userModel.setFranchiserId(0);
+		franchiserDao.updateUserToOpenId(userModel);
+		return true;
 	}
 	
 	/**
@@ -124,6 +156,47 @@ public class FranchiserService extends SmallBaseService {
 		return companyDao.getCompanyList(id);
 	}
 
+	/**
+	 * 经销商停用
+	 * 
+	 * @return
+	 */
+	public void updateFran(Integer id) {
+		franchiserDao.updateFran(id);
+		
+	}
 
+	/**
+	 * 检查该用户是否登陆过登录
+	 * 
+	 * @return
+	 */
+	@Transactional
+	public CommonResult checkLogin(String openId) {
+		Integer userId = franchiserDao.checkisLogin(openId);
+		if (userId == null) {
+			return ResultUtil.returnError("300","这是一个新账户");
+		} else if (userId == 0){
+			return ResultUtil.returnError("300","这是一个新账户");
+		}else{
+			return getfranchiserInfo(userId);
+		}
+
+	}
+	
+	/**
+	 * 确认手机号是否存在
+	 * 
+	 * @return
+	 */
+	public boolean checkPhone(String phone) {
+		FranchiserUserModel fran = franchiserDao.checkUser(phone);
+		if(fran == null){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
 	
 	}
