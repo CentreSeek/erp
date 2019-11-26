@@ -11,6 +11,8 @@
 package com.yjjk.erp.service;
 
 
+import com.github.pagehelper.PageInfo;
+import com.yjjk.erp.entity.vo.PagedGridResult;
 import com.yjjk.erp.mapper.ErpCompanyInfoMapper;
 import com.yjjk.erp.mapper.ErpContractInfoMapper;
 import com.yjjk.erp.mapper.ErpFranchiserInfoMapper;
@@ -23,6 +25,8 @@ import com.yjjk.erp.mapper.ErpRelationFranchiserCompanyMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @author CentreS
@@ -51,4 +55,13 @@ public class BaseService {
     @Autowired
     protected  ErpRelationFranchiserCompanyMapper erpRelationFranchiserCompanyMapper;
 
+    protected PagedGridResult setterPagedGrid(List<?> list, Integer page) {
+        PageInfo<?> pageList = new PageInfo<>(list);
+        PagedGridResult grid = new PagedGridResult();
+        grid.setPage(page);
+        grid.setRows(list);
+        grid.setTotal(pageList.getPages());
+        grid.setRecords(pageList.getTotal());
+        return grid;
+    }
 }

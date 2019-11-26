@@ -8,6 +8,5 @@ import org.springframework.stereotype.Service;
  * @author: CentreS
  * @create: 2019-11-25 19:44:25
  **/
-@Service
 public interface FranchiserService{
 }

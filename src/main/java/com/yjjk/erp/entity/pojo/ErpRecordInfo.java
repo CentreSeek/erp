@@ -6,8 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 import java.util.Date;
 
-@Table(name = "erp_record_info")
 @Accessors(chain = true)
+
+@Table(name = "erp_record_info")
 public class ErpRecordInfo {
     /**
      * 主键
@@ -54,6 +55,12 @@ public class ErpRecordInfo {
 
     @Column(name = "end_date")
     private String endDate;
+
+    /**
+     * 最新备案进度id
+     */
+    @Column(name = "rate_id")
+    private Integer rateId;
 
     /**
      * 获取主键
@@ -207,5 +214,23 @@ public class ErpRecordInfo {
      */
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    /**
+     * 获取最新备案进度id
+     *
+     * @return rate_id - 最新备案进度id
+     */
+    public Integer getRateId() {
+        return rateId;
+    }
+
+    /**
+     * 设置最新备案进度id
+     *
+     * @param rateId 最新备案进度id
+     */
+    public void setRateId(Integer rateId) {
+        this.rateId = rateId;
     }
 }

@@ -1,6 +1,6 @@
 package com.yjjk.erp.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @program: YjjkErp
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Controller;
  * @author: CentreS
  * @create: 2019-11-25 19:18:16
  **/
-@Controller
+@RestController
 public class ManagerController extends BaseController {
 }

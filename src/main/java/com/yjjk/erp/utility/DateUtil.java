@@ -55,6 +55,26 @@ public class DateUtil {
         return ft.format(date);
     }
 
+    /**
+     * 获取日期("yyyy-MM-dd")
+     * @param date
+     * @return
+     */
+    public static String getDate(Date date) {
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        return ft.format(date);
+    }
+
+    /**
+     * 获取时间("yyyy-MM-dd HH:mm:ss")
+     * @param date
+     * @return
+     */
+    public static String getDateTime(Date date) {
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return ft.format(date);
+    }
+
     public static Long getCurrentTimeLong() {
         Date date = new Date();
         return date.getTime();

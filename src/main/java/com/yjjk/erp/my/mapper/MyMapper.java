@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.yjjk.erp.mapper.my;
+package com.yjjk.erp.my.mapper;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;
