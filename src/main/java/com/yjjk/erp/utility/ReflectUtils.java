@@ -12,7 +12,6 @@ package com.yjjk.erp.utility;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Date;
 
 /**
  * @author CentreS
@@ -61,11 +60,6 @@ public class ReflectUtils {
                         Object val = fs.get(source);
 
                         ft.set(o, val);
-                        break;
-                    }else if (fs.getName().equals(ft.getName()) && fs.getType().toString().equals(Date.class.getTypeName())){
-                        // 得到此属性的值
-                        Date val = (Date)fs.get(source);
-                        ft.set(o, DateUtil.getDate(val));
                         break;
                     }
                 }

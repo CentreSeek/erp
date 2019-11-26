@@ -1,31 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yjjk.erp.mapper.ErpRecordInfoMapper">
-    <resultMap id="BaseResultMap" type="com.yjjk.erp.entity.pojo.ErpRecordInfo">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <result column="id" property="id" jdbcType="INTEGER"/>
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
-        <result column="status" property="status" jdbcType="INTEGER"/>
-        <result column="company_id" property="companyId" jdbcType="INTEGER"/>
-        <result column="hospital_id" property="hospitalId" jdbcType="INTEGER"/>
-        <result column="check_status" property="checkStatus" jdbcType="INTEGER"/>
-        <result column="start_date" property="startDate" jdbcType="VARCHAR"/>
-        <result column="end_date" property="endDate" jdbcType="VARCHAR"/>
-        <result column="rate_id" property="rateId" jdbcType="INTEGER"/>
-    </resultMap>
-
-    <select id="getRecordsInfo" resultType="com.yjjk.erp.entity.vo.RecordsInfoVO">
-    SELECT eri.id,DATE_FORMAT(eri.create_time,'%Y-%m-%d %H:%i') AS createTime, eci.name as companyName,
-    CONCAT(erai.user_name,'<![CDATA[<]]>br<![CDATA[>]]>',erai.user_phone) AS franchiserInfo,ehi.name as hospitalName,
-	eri.`check_status` AS checkStatusInt,CONCAT(eri.`start_date`,' ~ ',eri.`end_date`) AS recordValidityDate
-    FROM  erp_record_info eri
-    LEFT JOIN erp_hospital_info ehi ON eri.`hospital_id` = ehi.`id`
-    LEFT JOIN erp_rate_info erai ON erai.id = eri.`rate_id`
-    LEFT JOIN erp_company_info eci ON eri.company_id = eci.company_id AND eci.status = 0
-    WHERE ehi.`status` = 0 AND eri.`status` = 0
-    ORDER BY FIELD(eri.`check_status`,0,1,2,3)
-    </select>
+<mapper namespace="com.yjjk.erp.mapper.ErpRecordInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.yjjk.erp.entity.pojo.ErpRecordInfo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+    <result column="check_status" property="checkStatus" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="VARCHAR" />
+    <result column="end_date" property="endDate" jdbcType="VARCHAR" />
+  </resultMap>
 </mapper>
