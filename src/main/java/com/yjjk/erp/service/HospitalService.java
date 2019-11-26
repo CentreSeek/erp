@@ -1,7 +1,9 @@
 package com.yjjk.erp.service;
 
-import com.yjjk.erp.entity.bo.HospitalsInfoBO;
-import com.yjjk.erp.entity.vo.PagedGridResult;
+import com.yjjk.erp.entity.bo.HospitalInfoBO;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @program: YjjkErp
@@ -9,20 +11,14 @@ import com.yjjk.erp.entity.vo.PagedGridResult;
  * @author: CentreS
  * @create: 2019-11-25 19:44:54
  **/
+@Service
 public interface HospitalService {
 
-    /**
-     * 获取医院信息
-     * @param hospitalsInfoBO
-     * @return
+    /***
+     * 范德萨
+     * @param
+     * @Date: 20:34 2019/11/25
+     * @return java.util.List<com.yjjk.erp.entity.bo.HospitalInfoBO>
      */
-    PagedGridResult getHospitalInfo(HospitalsInfoBO hospitalsInfoBO);
-
-    /**
-     * 同医院合作
-     * @param hospitalId
-     * @return
-     */
-    int collaborate(Integer hospitalId);
-
+    List<HospitalInfoBO> getHospital();
 }

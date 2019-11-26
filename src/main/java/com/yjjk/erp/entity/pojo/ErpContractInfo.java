@@ -3,7 +3,6 @@ package com.yjjk.erp.entity.pojo;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -13,7 +12,6 @@ public class ErpContractInfo {
     /**
      * 主键
      */
-    @Id
     private Integer id;
 
     /**

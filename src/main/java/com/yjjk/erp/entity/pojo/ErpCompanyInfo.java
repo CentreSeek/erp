@@ -3,7 +3,6 @@ package com.yjjk.erp.entity.pojo;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -14,7 +13,6 @@ public class ErpCompanyInfo {
      * 主键
      */
     @Column(name = "company_id")
-    @Id
     private Integer companyId;
 
     private String name;

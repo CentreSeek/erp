@@ -3,7 +3,6 @@ package com.yjjk.erp.entity.pojo;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -13,20 +12,19 @@ public class ErpRelationFranchiserCompany {
     /**
      * 主键
      */
-    @Id
     private Integer id;
 
     /**
      * 公司id
      */
     @Column(name = "company_id")
-    private Integer companyId;
+    private String companyId;
 
     /**
      * 经销商id
      */
     @Column(name = "franchiser_id")
-    private Integer franchiserId;
+    private String franchiserId;
 
     /**
      * 创建时间
@@ -65,7 +63,7 @@ public class ErpRelationFranchiserCompany {
      *
      * @return company_id - 公司id
      */
-    public Integer getCompanyId() {
+    public String getCompanyId() {
         return companyId;
     }
 
@@ -74,7 +72,7 @@ public class ErpRelationFranchiserCompany {
      *
      * @param companyId 公司id
      */
-    public void setCompanyId(Integer companyId) {
+    public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
 
@@ -83,7 +81,7 @@ public class ErpRelationFranchiserCompany {
      *
      * @return franchiser_id - 经销商id
      */
-    public Integer getFranchiserId() {
+    public String getFranchiserId() {
         return franchiserId;
     }
 
@@ -92,7 +90,7 @@ public class ErpRelationFranchiserCompany {
      *
      * @param franchiserId 经销商id
      */
-    public void setFranchiserId(Integer franchiserId) {
+    public void setFranchiserId(String franchiserId) {
         this.franchiserId = franchiserId;
     }
 

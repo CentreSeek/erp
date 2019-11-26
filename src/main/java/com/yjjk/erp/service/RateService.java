@@ -1,8 +1,6 @@
 package com.yjjk.erp.service;
 
-import com.yjjk.erp.entity.vo.RatesInfoVO;
-
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * @program: YjjkErp
@@ -10,12 +8,6 @@ import java.util.List;
  * @author: CentreS
  * @create: 2019-11-25 19:45:31
  **/
+@Service
 public interface RateService {
-
-    /**
-     * 获取进度记录列表
-     * @param hospitalId
-     * @return
-     */
-    List<RatesInfoVO> getRateInfoList(Integer hospitalId);
 }
