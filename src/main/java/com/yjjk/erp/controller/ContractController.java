@@ -26,12 +26,12 @@ import io.swagger.annotations.ApiOperation;
  **/
 @RestController
 public class ContractController extends BaseController {
-
+	
 private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserController.class);
-
+	
 	/**
 	 * 获取签约列表
-	 *
+	 * 
 	 * @param userModel
 	 * @return
 	 */
@@ -49,10 +49,10 @@ private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserControlle
 
 		}
 	}
-
+	
 	/**
 	 * 新增签约
-	 *
+	 * 
 	 * @param userModel
 	 * @return
 	 */
@@ -69,10 +69,10 @@ private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserControlle
 
 		}
 	}
-
+	
 	/**
 	 * 修改签约
-	 *
+	 * 
 	 * @param userModel
 	 * @return
 	 */
@@ -89,5 +89,5 @@ private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserControlle
 
 		}
 	}
-
+	
 }

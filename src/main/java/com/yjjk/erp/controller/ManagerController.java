@@ -1,20 +1,23 @@
 package com.yjjk.erp.controller;
 
-import com.yjjk.erp.configer.CommonResult;
-import com.yjjk.erp.constant.ErrorCodeEnum;
-import com.yjjk.erp.entity.Info.CurrencyModel;
-import com.yjjk.erp.entity.Info.ManangerUserModel;
-import com.yjjk.erp.utility.ResultUtil;
-import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import com.yjjk.erp.configer.CommonResult;
+import com.yjjk.erp.constant.ErrorCodeEnum;
+import com.yjjk.erp.entity.Info.CurrencyModel;
+import com.yjjk.erp.entity.Info.ManangerUserModel;
+import com.yjjk.erp.utility.ResultUtil;
+
 import java.util.List;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * @program: YjjkErp
@@ -24,12 +27,12 @@ import java.util.List;
  **/
 @RestController
 public class ManagerController extends BaseController {
-
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
-
+	
 	/**
 	 * 获取管理员列表
-	 *
+	 * 
 	 * @param userModel
 	 * @return
 	 */
@@ -47,10 +50,10 @@ public class ManagerController extends BaseController {
 
 		}
 	}
-
+	
 	/**
 	 * 获取角色列表
-	 *
+	 * 
 	 * @return
 	 */
 	@ApiOperation("获取角色列表")
@@ -67,10 +70,10 @@ public class ManagerController extends BaseController {
 
 		}
 	}
-
+	
 	/**
 	 * 新增管理员
-	 *
+	 * 
 	 * @param userModel
 	 * @return
 	 */
@@ -88,10 +91,10 @@ public class ManagerController extends BaseController {
 
 		}
 	}
-
+	
 	/**
 	 * 删除管理员
-	 *
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -109,10 +112,10 @@ public class ManagerController extends BaseController {
 
 		}
 	}
-
+	
 	/**
 	 * 编辑管理员
-	 *
+	 * 
 	 * @param userModel
 	 * @return
 	 */
@@ -130,10 +133,10 @@ public class ManagerController extends BaseController {
 
 		}
 	}
-
+	
 	/**
 	 * 管理员修改密码
-	 *
+	 * 
 	 * @param userModel
 	 * @return
 	 */
@@ -143,7 +146,7 @@ public class ManagerController extends BaseController {
 		try {
 			return managerService.ChangeManagerPassWord(userModel);
 
-
+			
 
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -151,10 +154,10 @@ public class ManagerController extends BaseController {
 
 		}
 	}
-
+	
 	/**
 	 * 管理员登录
-	 *
+	 * 
 	 * @param userModel
 	 * @return
 	 */
@@ -170,10 +173,10 @@ public class ManagerController extends BaseController {
 
 		}
 	}
-
+	
 	/**
 	 * 管理员退出
-	 *
+	 * 
 	 * @param userModel
 	 * @return
 	 */
@@ -191,10 +194,10 @@ public class ManagerController extends BaseController {
 //
 //		}
 //	}
-
+	
 	/**
 	 * 确认账号是否存在
-	 *
+	 * 
 	 * @param account
 	 * @return
 	 */
@@ -210,6 +213,6 @@ public class ManagerController extends BaseController {
 
 		}
 	}
-
-
+	
+	
 }
