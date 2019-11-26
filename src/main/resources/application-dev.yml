@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8085
   servlet:
     context-path: /yjjk
 #  ssl:
@@ -44,6 +44,7 @@ mybatis:
   type-aliases-package: com.yjjk.monitor.entity
   configuration:
     map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: true
 
 #showSql
@@ -52,7 +53,7 @@ logging:
   level:
     com:
       yjjk:
-        monitor:
+        erp:
           mapper:
             DEBUG
 web:
