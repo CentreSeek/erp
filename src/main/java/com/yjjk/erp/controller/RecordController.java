@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -79,8 +80,8 @@ public class RecordController extends BaseController {
             if (recordInfo == null){
                 return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
             }
-//            int i = super.recordService.postpone(recordInfo);
-            return ResultUtil.returnSuccess(i);
+            int i = super.recordService.postpone(recordInfo, Calendar.MONTH,1);
+            return ResultUtil.returnSuccess(null);
         } catch (Exception e) {
             logger.error("业务异常信息：[{}]", e.getMessage(), e);
         }

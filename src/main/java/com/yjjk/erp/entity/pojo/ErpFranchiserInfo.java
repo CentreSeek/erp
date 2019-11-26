@@ -1,6 +1,7 @@
 package com.yjjk.erp.entity.pojo;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -9,6 +10,7 @@ public class ErpFranchiserInfo {
     /**
      * 主键
      */
+    @Id
     @Column(name = "franchiser_id")
     private Integer franchiserId;
 
