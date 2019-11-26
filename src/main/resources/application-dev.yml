@@ -46,7 +46,12 @@ mybatis:
     map-underscore-to-camel-case: true
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: true
-
+    
+configure:
+  appid: wx60ee5ea75cd38c55
+  appSecret: 7f1f7cf659b09366f202e4d15cdd5fab
+  type: authorization_code
+  
 #showSql
 logging:
   file: logs/${spring.application.name}.log

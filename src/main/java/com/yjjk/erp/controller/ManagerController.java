@@ -26,6 +26,7 @@ import io.swagger.annotations.ApiOperation;
  * @create: 2019-11-25 19:18:16
  **/
 @RestController
+@RequestMapping("/Manager")
 public class ManagerController extends BaseController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);

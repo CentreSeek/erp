@@ -49,7 +49,12 @@ mybatis:
   type-aliases-package: com.yjjk.monitor.entity
   configuration:
     map-underscore-to-camel-case: true
-
+    
+configure:
+  appid: wx60ee5ea75cd38c55
+  appSecret: 7f1f7cf659b09366f202e4d15cdd5fab
+  type: authorization_code
+  
 #showSql
 logging:
   file: logs/${spring.application.name}.log
