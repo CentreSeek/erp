@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjjk.erp.dao.ContractDao">
+
+	<!-- 获取签约列表 -->
+	<select id="contractList" parameterType="com.yjjk.erp.entity.Info.CurrencyModel"
+		resultType="com.yjjk.erp.entity.Info.ContractInfo">
+		select a.id id,a.order_num orderNum, a.create_time
+		createTime,b.name companyName,a.cooperation_scope cooperationScope,
+		a.user_name userName,a.phone phone,a.start_date startDate,a.end_date
+		endDate,c.name managerName,
+		a.contract_type contractType
+		from
+		erp_contract_info a,erp_company_info b,erp_manager_info c
+		where
+		b.company_id = a.company_id
+		and a.manager_id= c.manager_id
+		limit #{userModel.start},#{userModel.end}
+	</select>
+
+	<!-- 新增签约 -->
+	<insert id="addContract">
+		insert into erp_contract_info(
+		order_num,
+		company_id,
+		user_name,
+		phone,
+		start_date,
+		end_date,
+		cooperation_scope,
+		manager_id,
+		contract_type
+		)values(
+		#{userModel.orderNum},
+		#{userModel.companyId},
+		#{userModel.userName},
+		#{userModel.phone},
+		#{userModel.startDate},
+		#{userModel.endDate},
+		#{userModel.cooperationScope},
+		#{userModel.managerId},
+		#{userModel.contractType}
+		)
+	</insert>
+
+	<!-- 修改签约 -->
+	<update id="updateContract" parameterType="com.yjjk.erp.entity.Info.ContractInfo" >
+		update erp_contract_info set
+		<if test="userModel.startDate != null and userModel.startDate != ''">
+			start_date = #{userModel.startDate},
+		</if>
+		<if test="userModel.endDate != null and userModel.endDate != ''">
+			end_date = #{userModel.endDate},
+		</if>
+		<if test="userModel.contractType != null and userModel.contractType != ''">
+			contract_type = #{userModel.contractType},
+		</if>
+		<if test="userModel.cooperationScope != null and userModel.cooperationScope != ''">
+			cooperation_scope = #{userModel.cooperationScope},
+		</if>
+		<if test="userModel.managerId != null and userModel.managerId != ''">
+			manager_id = #{userModel.managerId},
+		</if>
+		update_time = #{userModel.updateTime}
+		where 1= 1
+		and id = #{userModel.id}
+
+	</update>
+
+
+</mapper>
