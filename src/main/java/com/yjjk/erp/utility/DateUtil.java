@@ -288,21 +288,24 @@ public class DateUtil {
     /**
      * 获取延期时间
      * @param time
-     * @param calendarConstant
-     * @param times
+     * @param calendar calendar常量
      * @return
      */
-    public static String getPassDate(String time, int calendarConstant, int times) {
+    public static String getPassDate(String time, int calendar,int duration) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date start = format.parse(time);
             Calendar cl = Calendar.getInstance();
             cl.setTime(start);
-            cl.add(calendarConstant,times);
+            cl.add(calendar,duration);
             return format.format(cl.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getPassDate("2019-11-26",Calendar.MONTH,2));
     }
 }

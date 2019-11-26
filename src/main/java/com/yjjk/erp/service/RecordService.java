@@ -4,6 +4,7 @@ import com.yjjk.erp.constant.RecordEnum;
 import com.yjjk.erp.entity.pojo.ErpRecordInfo;
 import com.yjjk.erp.entity.vo.RecordsInfoVO;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -39,9 +40,8 @@ public interface RecordService {
     /**
      * 审核时间延期
      * @param recordInfo
-     * @param calendarConstant
      * @param times
      * @return
      */
-    int postpone(ErpRecordInfo recordInfo, int calendarConstant, int times);
+    int postpone(ErpRecordInfo recordInfo, Calendar times);
 }

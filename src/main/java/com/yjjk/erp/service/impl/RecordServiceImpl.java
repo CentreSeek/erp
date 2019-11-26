@@ -5,7 +5,6 @@ import com.yjjk.erp.entity.pojo.ErpRecordInfo;
 import com.yjjk.erp.entity.vo.RecordsInfoVO;
 import com.yjjk.erp.service.BaseService;
 import com.yjjk.erp.service.RecordService;
-import com.yjjk.erp.utility.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -40,11 +39,11 @@ public class RecordServiceImpl extends BaseService implements RecordService {
     }
 
     @Override
-    public int postpone(ErpRecordInfo recordInfo, int calendarConstant, int times) {
+    public int postpone(ErpRecordInfo recordInfo, Calendar times) {
         ErpRecordInfo erpRecordInfo = new ErpRecordInfo();
         erpRecordInfo.setId(recordInfo.getId());
         erpRecordInfo.setUpdateTime(new Date());
-        erpRecordInfo.setEndDate(DateUtil.getPassDate(recordInfo.getEndDate(), Calendar.MONTH, times));
+//        erpRecordInfo.setEndDate(DateUtil.getPassDate(recordInfo.getEndDate(), times));
         return super.erpRecordInfoMapper.updateByPrimaryKeySelective(erpRecordInfo);
     }
 }
