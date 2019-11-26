@@ -19,7 +19,9 @@
 
     <select id="getHospitalsInfo" resultType="com.yjjk.erp.entity.vo.HospitalsInfoVO">
     SELECT ehi.`id`,ehi.`name`,CONCAT(ehi.`province`,'-',ehi.`city`) AS place,ehi.`area`,ehi.`rate_type`,
-    CONCAT(erai.user_name,'<![CDATA[<]]>br<![CDATA[>]]>',erai.user_phone) AS userInfo,CONCAT(eri.`start_date`,'至',eri.`end_date`) AS recordValidityDate,erai.rate_type AS rateTypeRate, DATE_FORMAT(erai.create_time,'%Y-%m-%d') AS createTimeRate
+    CONCAT(erai.user_name,'<![CDATA[<]]>br<![CDATA[>]]>',erai.user_phone) AS userInfo,
+    CONCAT(eri.`start_date`,'至',eri.`end_date`) AS recordValidityDate,erai.rate_type AS rateTypeRate,
+    DATE_FORMAT(erai.create_time,'%Y-%m-%d') AS createTimeRate
     FROM  erp_hospital_info ehi
     LEFT JOIN erp_record_info eri ON eri.`hospital_id` = ehi.`id` AND eri.`status` = 0
     LEFT JOIN erp_rate_info erai ON erai.id = eri.`rate_id`

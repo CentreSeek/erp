@@ -57,6 +57,7 @@ public class DateUtil {
 
     /**
      * 获取日期("yyyy-MM-dd")
+     *
      * @param date
      * @return
      */
@@ -67,6 +68,7 @@ public class DateUtil {
 
     /**
      * 获取时间("yyyy-MM-dd HH:mm:ss")
+     *
      * @param date
      * @return
      */
@@ -96,6 +98,7 @@ public class DateUtil {
 
     /**
      * 心电历史记录导出文件名
+     *
      * @return
      */
     public static String getHealthHistoryFileName() {
@@ -282,4 +285,24 @@ public class DateUtil {
         return "";
     }
 
+    /**
+     * 获取延期时间
+     * @param time
+     * @param calendarConstant
+     * @param times
+     * @return
+     */
+    public static String getPassDate(String time, int calendarConstant, int times) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date start = format.parse(time);
+            Calendar cl = Calendar.getInstance();
+            cl.setTime(start);
+            cl.add(calendarConstant,times);
+            return format.format(cl.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }
