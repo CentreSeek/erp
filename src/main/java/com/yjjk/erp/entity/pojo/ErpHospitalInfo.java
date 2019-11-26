@@ -3,6 +3,7 @@ package com.yjjk.erp.entity.pojo;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -12,6 +13,7 @@ public class ErpHospitalInfo {
     /**
      * 主键
      */
+    @Id
     private Integer id;
 
     /**
@@ -43,7 +45,7 @@ public class ErpHospitalInfo {
     /**
      * 详细地址
      */
-    private String adress;
+    private String address;
 
     /**
      * 创建时间
@@ -175,8 +177,8 @@ public class ErpHospitalInfo {
      *
      * @return adress - 详细地址
      */
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
     /**
@@ -184,8 +186,8 @@ public class ErpHospitalInfo {
      *
      * @param adress 详细地址
      */
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String adress) {
+        this.address = adress;
     }
 
     /**
