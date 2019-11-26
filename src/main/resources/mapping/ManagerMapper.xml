@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjjk.erp.dao.ManagerDao">
+
+	<!-- 获取管理员列表 -->
+	<select id="managerList" parameterType="com.yjjk.erp.entity.Info.CurrencyModel"
+		resultType="com.yjjk.erp.entity.Info.ManangerUserModel">
+		select a.manager_id managerId,a.phone,a.name, b.role_name
+		genderName from
+		erp_manager_info
+		a,erp_role_info b
+		where a.gender =
+		b.role_gender
+		and status = 0
+		limit
+		#{userModel.start},#{userModel.end}
+	</select>
+
+	<!-- 获取角色列表 -->
+	<select id="RoleList" resultType="com.yjjk.erp.entity.Info.ManangerUserModel">
+		select role_gender
+		gender,role_name genderName from
+		erp_role_info
+		where 1=1
+		and role_gender
+		!= 0
+	</select>
+
+	<!-- 新增管理员 -->
+	<insert id="addManager" parameterType="com.yjjk.erp.entity.Info.ManangerUserModel">
+		insert into
+		erp_manager_info(
+		phone,
+		password,
+		name,
+		gender,
+		sex
+		)values(
+		#{userModel.phone},
+		#{userModel.passWord},
+		#{userModel.name},
+		#{userModel.gender},
+		#{userModel.sex}
+		)
+	</insert>
+
+	<!-- 删除管理员 -->
+	<update id="deleteManager" parameterType="Integer">
+		update erp_manager_info
+		set
+		status = 1
+		where 1= 1
+		and manager_id = #{id}
+
+	</update>
+
+	<!-- 编辑管理员 -->
+	<update id="updateManager" parameterType="com.yjjk.erp.entity.Info.ManangerUserModel">
+		update erp_manager_info
+		set
+		update_time = #{userModel.updateTime}
+		gender = #{userModel.gender}
+		where 1= 1
+		and id = #{userModel.managerId}
+	</update>
+
+	<!-- 获取管理员信息 -->
+	<select id="getManagerData" resultType="com.yjjk.erp.entity.Info.ManangerUserModel">
+		select * from
+		erp_manager_info
+		where 1 =1
+		and manager_id = #{id}
+
+	</select>
+
+	<!-- 修改管理员密码 -->
+	<update id="ChangeManagerPassWord" parameterType="com.yjjk.erp.entity.Info.ManangerUserModel">
+		update
+		erp_manager_info set
+		update_time = #{userModel.updateTime}
+		password =
+		#{userModel.passWord}
+		where 1= 1
+		and id = #{userModel.managerId}
+	</update>
+	
+	<!-- 获取管理员密码 -->
+	<select id="getManagerPassWord" >
+		select password from
+		erp_manager_info
+		where 1 =1
+		and phone = #{phone}
+
+	</select>
+</mapper>

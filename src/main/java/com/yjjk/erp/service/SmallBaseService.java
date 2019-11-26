@@ -7,9 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yjjk.erp.dao.CompanyDao;
 import com.yjjk.erp.dao.ContractDao;
 import com.yjjk.erp.dao.FranchiserDao;
-import com.yjjk.erp.dao.ManagerServiceDao;
+import com.yjjk.erp.dao.ManagerDao;
 import com.yjjk.erp.entity.wx.Configure;
 
 public class SmallBaseService {
@@ -21,13 +22,16 @@ public class SmallBaseService {
 	Configure configure;
 	
 	@Autowired
-	ManagerServiceDao managerServiceDao;
+	ManagerDao managerDao;
 	
 	@Autowired
 	FranchiserDao  franchiserDao;
 	
 	@Autowired
 	ContractDao contractDao;
+	
+	@Autowired
+	CompanyDao companyDao;
 	
 	final static String APPID = "wxb21e2eb790f4ee9d";
 
