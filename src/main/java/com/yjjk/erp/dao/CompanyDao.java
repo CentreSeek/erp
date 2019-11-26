@@ -1,5 +1,7 @@
 package com.yjjk.erp.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.yjjk.erp.entity.Info.ContractInfo;
@@ -18,5 +20,14 @@ public interface CompanyDao {
 	 * @param userModel
 	 */
 	void addCompany(@Param(value = "company") ContractInfo userModel);
+	
+	/**
+	 * 获取与经销商无关的公司列表
+	 * 
+	 * @return
+	 */
+	List<ContractInfo> getCompanyList(@Param(value = "id") Integer id);
+	
+	
 
 }
