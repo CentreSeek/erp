@@ -50,6 +50,16 @@ public class ManagerService extends SmallBaseService {
 	}
 	
 	/**
+	 * 获取管理员名称和id
+	 * 
+	 * @return
+	 */
+	public List<ManangerUserModel> getManager() {
+		List<ManangerUserModel> list = managerDao.getManager();
+		return list;
+	}
+	
+	/**
 	 * 新增管理员
 	 * 
 	 * @param userModel
@@ -225,6 +235,8 @@ public class ManagerService extends SmallBaseService {
 	        } 
 		
 	}
+
+
 	
 	
 }

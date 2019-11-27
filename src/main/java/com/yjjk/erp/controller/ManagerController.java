@@ -46,12 +46,32 @@ public class ManagerController extends BaseController {
 	 * @return
 	 */
 	@ApiOperation("获取管理员列表")
-	@RequestMapping(value = "/ManagerList", method = RequestMethod.GET)
+	@RequestMapping(value = "/ManagerList", method = RequestMethod.POST)
 	public CommonResult ManagerList(@Valid CurrencyModel userModel) {
 		try {
 			ListData listData =  managerService.managerList(userModel);
 
 			return ResultUtil.returnSuccess(listData);
+
+		} catch (Exception e) {
+			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
+			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+
+		}
+	}
+	
+	/**
+	 * 获取管理员名称和id
+	 * 
+	 * @return
+	 */
+	@ApiOperation("获取管理员名称和id")
+	@RequestMapping(value = "/getManager", method = RequestMethod.GET)
+	public CommonResult getManager() {
+		try {
+			List<ManangerUserModel> list =  managerService.getManager();
+
+			return ResultUtil.returnSuccess(list);
 
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
