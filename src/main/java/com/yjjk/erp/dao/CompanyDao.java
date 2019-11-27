@@ -3,9 +3,10 @@ package com.yjjk.erp.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import com.yjjk.erp.entity.Info.ContractInfo;
-
+@Component
 public interface CompanyDao {
 
 	/**

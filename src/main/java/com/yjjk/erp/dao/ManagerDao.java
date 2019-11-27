@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.yjjk.erp.entity.Info.CurrencyModel;
 import com.yjjk.erp.entity.Info.ManangerUserModel;
+import com.yjjk.erp.entity.Info.YjLoginState;
 
 @Component
 public interface ManagerDao {
@@ -70,6 +71,45 @@ public interface ManagerDao {
 	 * @param managerId
 	 * @return
 	 */
-	String getManagerPassWord(@Param(value = "phone")String phone);
+	Integer getManagerPassWord(@Param(value = "phone") String phone);
+	
+	/**
+	 * 确认Token是否存在
+	 * 
+	 * @param account
+	 * @return
+	 */
+	String checkToken(@Param(value = "token") String token,@Param(value = "ip") String remoteAddr);
+
+	/**
+	 * 获取token信息
+	 * 
+	 * @param account
+	 * @return
+	 */
+	YjLoginState getTokeInfo(@Param(value = "managerId") Integer managerId);
+
+	/**
+	 * 更新token信息
+	 * 
+	 * @param account
+	 * @return
+	 */
+	void updateTokenInfo(@Param(value = "yj") YjLoginState yj);
+
+	/**
+	 * 新增token信息
+	 * 
+	 * @param account
+	 * @return
+	 */
+	void addTokenInfo(@Param(value = "yj") YjLoginState loginState);
+	
+	/**
+	 * 获取管理总数
+	 * 
+	 * @return
+	 */
+	Integer getmanagerNum();
 
 }

@@ -3,15 +3,22 @@ package com.yjjk.erp.service;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
+import com.yjjk.erp.entity.Info.CompanyRelation;
 import com.yjjk.erp.entity.Info.ContractInfo;
 import com.yjjk.erp.entity.Info.CurrencyModel;
+import com.yjjk.erp.entity.Info.FranAccountModel;
 import com.yjjk.erp.entity.Info.FranchiserUserModel;
+import com.yjjk.erp.entity.Info.ListData;
+import com.yjjk.erp.entity.Info.ManagePassword;
+import com.yjjk.erp.entity.Info.ManangerUserModel;
 import com.yjjk.erp.entity.wx.WechatModel;
 import com.yjjk.erp.utility.MD532;
 import com.yjjk.erp.utility.ResultUtil;
@@ -60,7 +67,8 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
-	public void FranBindingCom(FranchiserUserModel userModel) {
+	@Transactional
+	public void FranBindingCom(CompanyRelation userModel) {
 		for (Integer companyId : userModel.getComList()) {
 			franchiserDao.addRelation(companyId,userModel.getFranchiserId());
 		}
@@ -72,13 +80,13 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
-	public CommonResult XCXLogin( FranchiserUserModel userModel) {
-		FranchiserUserModel fran = franchiserDao.checkUser(userModel.getPhone());
+	public CommonResult XCXLogin(FranAccountModel franAccountModel) {
+		FranchiserUserModel fran = franchiserDao.checkUser(franAccountModel.getPhone());
 			if (fran != null) {
-				String userPassword = MD532.encode(userModel.getPassword());
+				String userPassword = MD532.encode(franAccountModel.getPassWord());
 				if (userPassword.equals(fran.getPassword())) {
-					fran.setOpenId(userModel.getOpenId());
-					Integer id = franchiserDao.checkisLogin(userModel.getOpenId());
+					fran.setOpenId(franAccountModel.getOpenId());
+					Integer id = franchiserDao.checkisLogin(franAccountModel.getOpenId());
 					if (id == null) {
 						fran.setCreateTime(getAllTime());
 						franchiserDao.addNewUserToOpenId(fran);
@@ -113,9 +121,13 @@ public class FranchiserService extends SmallBaseService {
      * @param userModel
      * @return
 	 */
+	@Transactional
 	public CommonResult addFran( FranchiserUserModel userModel) {
 		userModel.setPassword(MD532.encode("123456"));
 		franchiserDao.addFran(userModel);
+		for (Integer companyId : userModel.getComList()) {
+			franchiserDao.addRelation(companyId,userModel.getFranchiserId());
+		}
 		return ResultUtil.returnSuccess("");
 	}
 
@@ -124,7 +136,7 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
-	public List<FranchiserUserModel> getFranList(CurrencyModel userModel) {
+	public ListData getFranList(CurrencyModel userModel) {
 		userModel.setStart(userModel.getPage()*userModel.getNumber());
 		userModel.setEnd((userModel.getPage()+1)*userModel.getNumber()-1);
 		List<FranchiserUserModel> list = franchiserDao.getFranList(userModel) ;
@@ -132,7 +144,10 @@ public class FranchiserService extends SmallBaseService {
 			String b =franchiserUserModel.getPhone().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
 			franchiserUserModel.setPhone(b);
 		}
-		return list;
+		ListData listData = new ListData();
+		listData.setData(list);
+		listData.setTotal(franchiserDao.getfranNum());
+		return listData;
 	}
 	
 	/**
@@ -140,9 +155,11 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
-	public boolean XCXLoginOut( FranchiserUserModel userModel) {
+	public boolean XCXLoginOut(String openId) {
+		FranchiserUserModel  userModel= new FranchiserUserModel();
 		userModel.setUpdateTime(getAllTime());
 		userModel.setFranchiserId(0);
+		userModel.setOpenId(openId);
 		franchiserDao.updateUserToOpenId(userModel);
 		return true;
 	}
@@ -161,6 +178,7 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
+	@Transactional
 	public void updateFran(Integer id) {
 		franchiserDao.updateFran(id);
 		
@@ -197,6 +215,26 @@ public class FranchiserService extends SmallBaseService {
 			return false;
 		}
 		
+	}
+
+	/**
+	 * 小程序修改密码
+	 * 
+	 * @param userModel
+	 * @return
+	 */
+	@Transactional
+	public CommonResult ChangeFranPassWord(ManagePassword managePassword) {
+		FranchiserUserModel user = franchiserDao.getfranchiserInfo(managePassword.getUserId());
+		String PassWord = MD532.encode(managePassword.getPassWord());
+		if(user.getPassword().equals(PassWord)){
+			user.setUpdateTime(getAllTime());
+			user.setPassword(MD532.encode(managePassword.getNewPassWord()));
+			franchiserDao.ChangeFranPassWord(user);
+			return  ResultUtil.returnSuccess("");
+		}else{
+			return ResultUtil.returnError("300", "旧密码错误");
+		}
 	}
 	
 	}

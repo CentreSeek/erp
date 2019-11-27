@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.yjjk.erp.entity.Info.ContractInfo;
 import com.yjjk.erp.entity.Info.CurrencyModel;
 import com.yjjk.erp.entity.Info.FranchiserUserModel;
+import com.yjjk.erp.entity.Info.ListData;
 
 /**
  * @program: YjjkErp
@@ -25,14 +26,17 @@ public class ContractService extends SmallBaseService {
 	 * @param userModel
 	 * @return
 	 */
-	public List<ContractInfo> contractList(CurrencyModel userModel) {
+	public ListData contractList(CurrencyModel userModel) {
 		userModel.setStart(userModel.getPage()*userModel.getNumber());
 		userModel.setEnd((userModel.getPage()+1)*userModel.getNumber()-1);
 		List<ContractInfo> list = contractDao.contractList(userModel);
 		for (ContractInfo contractInfo : list) {
 			contractInfo.setStartDate(contractInfo.getStartDate()+"----"+contractInfo.getEndDate());
 		}
-		return list;
+		ListData listData = new ListData();
+		listData.setData(list);
+		listData.setTotal(contractDao.getcontractNum());
+		return listData;
 	}
 
 	/**
@@ -60,6 +64,7 @@ public class ContractService extends SmallBaseService {
 	public void updateContract(ContractInfo userModel) {
 		userModel.setUpdateTime(getAllTime());
 		contractDao.updateContract(userModel);
+		
 	}
 	
 	
