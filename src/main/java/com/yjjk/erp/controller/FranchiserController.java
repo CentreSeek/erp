@@ -1,4 +1,5 @@
 package com.yjjk.erp.controller;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,13 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
+import com.yjjk.erp.entity.Info.CompanyRelation;
 import com.yjjk.erp.entity.Info.ContractInfo;
 import com.yjjk.erp.entity.Info.CurrencyModel;
+import com.yjjk.erp.entity.Info.FranAccountModel;
 import com.yjjk.erp.entity.Info.FranchiserUserModel;
+import com.yjjk.erp.entity.Info.ListData;
+import com.yjjk.erp.entity.Info.ManagePassword;
 import com.yjjk.erp.entity.wx.WechatModel;
 import com.yjjk.erp.utility.ResultUtil;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * @program: YjjkErp
@@ -27,6 +34,7 @@ import io.swagger.annotations.ApiOperation;
  * @author: CentreS
  * @create: 2019-11-25 19:19:11
  **/
+@Api(tags = "经销商模块")
 @RestController
 @RequestMapping("/Franchiser")
 public class FranchiserController extends BaseController {
@@ -40,7 +48,7 @@ public class FranchiserController extends BaseController {
 	 */
 	@ApiOperation("获取微信唯一code")
 	@RequestMapping(value = "/getopenid", method = RequestMethod.GET)
-	public CommonResult getOpenID(@RequestParam(value = "code") String code) {
+	public CommonResult getOpenID(@ApiParam(value = "微信code") @RequestParam(value = "code") String code) {
 		try {
 			WechatModel wechatModel = franchiserService.getOpenID(code);
 			if (wechatModel.getErrcode() != null) {
@@ -64,9 +72,9 @@ public class FranchiserController extends BaseController {
 	 */
 	@ApiOperation("经销商账户绑定公司")
 	@RequestMapping(value = "/FranBindingCom", method = RequestMethod.POST)
-	public CommonResult FranBindingCom(@Valid FranchiserUserModel userModel) {
+	public CommonResult FranBindingCom(@Valid CompanyRelation userModel) {
 		try {
-			 franchiserService.FranBindingCom(userModel);
+			franchiserService.FranBindingCom(userModel);
 
 			return ResultUtil.returnSuccess("");
 
@@ -85,9 +93,9 @@ public class FranchiserController extends BaseController {
 	 */
 	@ApiOperation("小程序登录")
 	@RequestMapping(value = "/XCXLogin", method = RequestMethod.POST)
-	public CommonResult XCXLogin(@Valid FranchiserUserModel userModel) {
+	public CommonResult XCXLogin(@Valid FranAccountModel franAccountModel) {
 		try {
-			return franchiserService.XCXLogin(userModel);
+			return franchiserService.XCXLogin(franAccountModel);
 
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -101,9 +109,9 @@ public class FranchiserController extends BaseController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/checkLogin")
-	@PostMapping
-	public CommonResult checkLogin(@RequestParam(value = "openId") String openId) {
+	@ApiOperation("检查该用户是否登陆过登录")
+	@RequestMapping(value = "/checkLogin", method = RequestMethod.GET)
+	public CommonResult checkLogin(@ApiParam(value = "微信openid") @RequestParam(value = "openId") String openId) {
 		try {
 			return franchiserService.checkLogin(openId);
 
@@ -113,7 +121,7 @@ public class FranchiserController extends BaseController {
 
 		}
 	}
-	
+
 	/**
 	 * 获取经销商个人信息
 	 * 
@@ -122,9 +130,9 @@ public class FranchiserController extends BaseController {
 	 */
 	@ApiOperation("获取经销商个人信息")
 	@RequestMapping(value = "/getfranchiserInfo", method = RequestMethod.POST)
-	public CommonResult getfranchiserInfo(@Valid FranchiserUserModel userModel) {
+	public CommonResult getfranchiserInfo(@ApiParam(value = "经销商id") @RequestParam(value = "id") Integer id) {
 		try {
-			return franchiserService.getfranchiserInfo(userModel.getFranchiserId());
+			return franchiserService.getfranchiserInfo(id);
 
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -161,15 +169,15 @@ public class FranchiserController extends BaseController {
 	@RequestMapping(value = "/getFranList", method = RequestMethod.GET)
 	public CommonResult getFranList(@Valid CurrencyModel userModel) {
 		try {
-			List<FranchiserUserModel> userList = franchiserService.getFranList(userModel);
-			return ResultUtil.returnSuccess(userList);
+			ListData listData = franchiserService.getFranList(userModel);
+			return ResultUtil.returnSuccess(listData);
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
 			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
 
 		}
 	}
-	
+
 	/**
 	 * 经销商停用
 	 * 
@@ -177,9 +185,9 @@ public class FranchiserController extends BaseController {
 	 */
 	@ApiOperation("经销商停用")
 	@RequestMapping(value = "/updateFran", method = RequestMethod.GET)
-	public CommonResult updateFran(@RequestParam(value = "id") Integer id) {
+	public CommonResult updateFran(@ApiParam(value = "经销商id") @RequestParam(value = "id") Integer id) {
 		try {
-			 franchiserService.updateFran(id);
+			franchiserService.updateFran(id);
 			return ResultUtil.returnSuccess("");
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -195,21 +203,20 @@ public class FranchiserController extends BaseController {
 	 */
 	@ApiOperation("小程序退出登录")
 	@RequestMapping(value = "/XCXLoginOut", method = RequestMethod.POST)
-	public CommonResult XCXLoginOut(@Valid FranchiserUserModel userModel) {
+	public CommonResult XCXLoginOut(@ApiParam(value = "微信openid") @RequestParam(value = "openId") String openId) {
 		try {
-			boolean isTrue = franchiserService.XCXLoginOut(userModel);
-			 if(isTrue){
-				 return ResultUtil.returnSuccess("","退出成功");
-			 }else{
-				 return ResultUtil.returnError("300","退出失败");
-			 }
+			boolean isTrue = franchiserService.XCXLoginOut(openId);
+			if (isTrue) {
+				return ResultUtil.returnSuccess("", "退出成功");
+			} else {
+				return ResultUtil.returnError("300", "退出失败");
+			}
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
 			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
 
 		}
 	}
-	
 
 	/**
 	 * 获取与经销商无关的公司列表
@@ -228,7 +235,7 @@ public class FranchiserController extends BaseController {
 
 		}
 	}
-	
+
 	/**
 	 * 确认手机号是否存在
 	 * 
@@ -239,13 +246,31 @@ public class FranchiserController extends BaseController {
 	public CommonResult checkPhone(@RequestParam(value = "phone") String phone) {
 		try {
 			boolean istrue = franchiserService.checkPhone(phone);
-			if(istrue){
+			if (istrue) {
 				return ResultUtil.returnSuccess("");
-			}else{
-				return ResultUtil.returnError("300","已存在");
+			} else {
+				return ResultUtil.returnError("300", "已存在");
 			}
-			
-			
+
+		} catch (Exception e) {
+			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
+			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+
+		}
+	}
+	
+	/**
+	 * 小程序修改密码
+	 * 
+	 * @param userModel
+	 * @return
+	 */
+	@ApiOperation("小程序修改密码")
+	@RequestMapping(value = "/ChangeFranPassWord", method = RequestMethod.POST)
+	public CommonResult ChangeFranPassWord(@Valid ManagePassword managePassword) {
+		try {
+			return franchiserService.ChangeFranPassWord(managePassword);
+
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
 			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);

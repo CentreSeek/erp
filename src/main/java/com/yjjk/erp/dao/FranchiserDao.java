@@ -75,4 +75,19 @@ public interface FranchiserDao {
 	 */
 	FranchiserUserModel getfranchiserInfo(@Param(value = "id")Integer franchiserId);
 
+	/**
+	 * 小程序修改密码
+	 * 
+	 * @param userModel
+	 * @return
+	 */
+	void ChangeFranPassWord(@Param(value = "user") FranchiserUserModel user);
+	
+	/**
+	 * 获取代理商总数
+	 * 
+	 * @return
+	 */
+	Integer getfranNum();
+
 }

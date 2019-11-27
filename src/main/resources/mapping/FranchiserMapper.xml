@@ -59,7 +59,7 @@
 	</select>
 
 	<!-- 获取登录记录里的id -->
-	<select id="checkisLogin">
+	<select id="checkisLogin" parameterType="String" resultType="Integer">
 		select franchiser_id from
 		erp_franchiser_openid
 		where 1=1
@@ -99,5 +99,22 @@
 		where 1=1
 		and franchiser_id = #{id}
 	</select>
+	
+		<!-- 小程序修改密码 -->
+	<update id="ChangeFranPassWord" parameterType="com.yjjk.erp.entity.Info.FranchiserUserModel">
+		update
+		erp_franchiser_info
+		set
+		password = #{user.password},
+		update_time = #{user.updateTime}
+		where 1 = 1
+		and franchiser_id = #{user.franchiserId}
 
+	</update>
+	
+	<!-- 获取代理商总数 -->
+	<select id="getfranNum"  resultType="Integer">
+		select COUNT(franchiser_id) from
+		erp_franchiser_info
+	</select>
 </mapper>

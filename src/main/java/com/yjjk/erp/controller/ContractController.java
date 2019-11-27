@@ -1,19 +1,24 @@
 package com.yjjk.erp.controller;
 
-import com.yjjk.erp.configer.CommonResult;
-import com.yjjk.erp.constant.ErrorCodeEnum;
-import com.yjjk.erp.entity.Info.ContractInfo;
-import com.yjjk.erp.entity.Info.CurrencyModel;
-import com.yjjk.erp.utility.ResultUtil;
-import io.swagger.annotations.ApiOperation;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
+import com.yjjk.erp.configer.CommonResult;
+import com.yjjk.erp.constant.ErrorCodeEnum;
+import com.yjjk.erp.entity.Info.ContractInfo;
+import com.yjjk.erp.entity.Info.CurrencyModel;
+import com.yjjk.erp.entity.Info.ListData;
+import com.yjjk.erp.utility.ResultUtil;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * @program: YjjkErp
@@ -21,6 +26,7 @@ import java.util.List;
  * @author: CentreS
  * @create: 2019-11-25 19:22:49
  **/
+@Api(tags = "签约管理模块")
 @RestController
 @RequestMapping("/Contract")
 public class ContractController extends BaseController {
@@ -34,12 +40,11 @@ private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserControlle
 	 * @return
 	 */
 	@ApiOperation("获取签约列表")
-	@RequestMapping(value = "/ContractList", method = RequestMethod.GET)
+	@RequestMapping(value = "/ContractList", method = RequestMethod.POST)
 	public CommonResult ContractList(@Valid CurrencyModel userModel) {
 		try {
-			List<ContractInfo> contractList = contractService.contractList(userModel);
-
-			return ResultUtil.returnSuccess(contractList);
+			ListData listData = contractService.contractList(userModel);
+			return ResultUtil.returnSuccess(listData);
 
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -84,6 +89,8 @@ private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserControlle
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
 			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+
 		}
 	}
+	
 }

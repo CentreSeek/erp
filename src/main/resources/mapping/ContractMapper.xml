@@ -8,7 +8,7 @@
 		select a.id id,a.order_num orderNum, a.create_time
 		createTime,b.name companyName,a.cooperation_scope cooperationScope,
 		a.user_name userName,a.phone phone,a.start_date startDate,a.end_date
-		endDate,c.name managerName,
+		endDate,c.name managerName,c.manager_id managerId,
 		a.contract_type contractType
 		from
 		erp_contract_info a,erp_company_info b,erp_manager_info c
@@ -66,6 +66,11 @@
 		and id = #{userModel.id}
 
 	</update>
-
+	
+	<!-- 获取签约总数 -->
+	<select id="getcontractNum"  resultType="Integer">
+		select COUNT(id) from
+		erp_contract_info
+	</select>
 
 </mapper>
