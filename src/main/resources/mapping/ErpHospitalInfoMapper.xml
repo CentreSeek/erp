@@ -26,10 +26,18 @@
     LEFT JOIN erp_record_info eri ON eri.`hospital_id` = ehi.`id` AND eri.`status` = 0 and ehi.rate_type = 1
     LEFT JOIN erp_rate_info erai ON erai.id = eri.`rate_id`
     WHERE ehi.`status` = 0
-    ORDER BY FIELD(ehi.`rate_type`,1,2,3,0)
+    ORDER BY FIELD(ehi.`rate_type`,1,2,3,4,0)
     </select>
 
     <select id="getList" resultType="com.yjjk.erp.entity.vo.ListVO">
-    SELECT id,NAME FROM erp_hospital_info WHERE rate_type IN (0,3)
+    SELECT id,NAME FROM erp_hospital_info WHERE rate_type IN (0,3,4)
+    </select>
+
+    <select id="getMyHospitals" resultType="com.yjjk.erp.entity.vo.MyHospitalsVO" parameterType="java.lang.Integer">
+    SELECT ehi.`id`,ehi.`name`, ehi.rate_type, ehi.create_time, ehi.update_time as objectTime
+    FROM  erp_hospital_info ehi
+    LEFT JOIN erp_relation_company_hospital erch ON ehi.`id` = erch.hospital_id
+    WHERE erch.company_id = #{companyId, jdbcType=INTEGER}
+    ORDER BY erch.create_time desc
     </select>
 </mapper>

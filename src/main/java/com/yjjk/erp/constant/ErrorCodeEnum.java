@@ -32,6 +32,9 @@ public enum ErrorCodeEnum {
     ERROR_RECORD("321", "错误记录"),
 
     UPDATE_ERROR("330", "更新失败"),
+    COLLABORATE_ERROR("331","合作失败，"),
+    STOP_COLLABORATE_ERROR("332","终止合作失败"),
+    NON_COLLABORATE("333","未找到合作关系"),
 
     UNKNOWN_ERROR("500", "系统繁忙，请稍后再试....");
 

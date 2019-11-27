@@ -22,4 +22,9 @@
     FROM erp_rate_info WHERE hospital_id = #{hospitalId, jdbcType=INTEGER}
     order by create_time desc
     </select>
+
+    <select id="selectId" parameterType="com.yjjk.erp.entity.pojo.ErpRateInfo" resultType="java.lang.Integer">
+    SELECT id from erp_rate_info where hospital_id = #{hospitalId, jdbcType=INTEGER} and rate_type = #{rateType, jdbcType=INTEGER}
+    order by create_time desc limit 0,1
+    </select>
 </mapper>

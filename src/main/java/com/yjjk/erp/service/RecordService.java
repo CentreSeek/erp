@@ -44,4 +44,12 @@ public interface RecordService {
      * @return
      */
     int postpone(ErpRecordInfo recordInfo, int calendarConstant, int times);
+
+    /**
+     * 新增备案
+     * @param hospitalId
+     * @param companyId
+     * @return
+     */
+    int addRecord(Integer hospitalId, Integer companyId);
 }

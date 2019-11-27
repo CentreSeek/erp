@@ -47,6 +47,25 @@ public class HospitalController extends BaseController {
         try {
 
             int collaborate = super.hospitalService.collaborate(hospitalId);
+            if (collaborate == 0){
+                return ResultUtil.returnError(ErrorCodeEnum.COLLABORATE_ERROR);
+            }
+            return ResultUtil.returnSuccess(collaborate);
+        } catch (Exception e) {
+            logger.error("业务异常信息：[{}]", e.getMessage(), e);
+        }
+        return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+    }
+
+    @ApiOperation("与医院终止合作关系")
+    @RequestMapping(value = "/stopCollaborate", method = RequestMethod.PUT)
+    public CommonResult<Integer> stopCollaborate(@ApiParam(value = "医院id", required = true) @RequestParam("hospitalId") Integer hospitalId) {
+        try {
+
+            int collaborate = super.hospitalService.stopCollaborate(hospitalId);
+            if (collaborate == 0){
+                return ResultUtil.returnError(ErrorCodeEnum.STOP_COLLABORATE_ERROR);
+            }
             return ResultUtil.returnSuccess(collaborate);
         } catch (Exception e) {
             logger.error("业务异常信息：[{}]", e.getMessage(), e);

@@ -2,6 +2,7 @@ package com.yjjk.erp.controller;
 
 import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
+import com.yjjk.erp.entity.bo.AddRateBO;
 import com.yjjk.erp.entity.vo.RatesInfoVO;
 import com.yjjk.erp.utility.ResultUtil;
 import io.swagger.annotations.Api;
@@ -37,12 +38,12 @@ public class RateController extends BaseController {
         return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
     }
 
-    @ApiOperation("备案详情记录")
-    @RequestMapping(value = "/rates", method = RequestMethod.GET)
-    public CommonResult<List<RatesInfoVO>> getCompanyRate(@ApiParam(value = "companyId") @RequestParam("hospitalId") Integer hospitalId) {
+    @ApiOperation("新增进度")
+    @RequestMapping(value = "/rate", method = RequestMethod.POST)
+    public CommonResult addRate(AddRateBO addRateBO) {
         try {
-            List<RatesInfoVO> rateInfoList = super.rateService.getRateInfoList(hospitalId);
-            return ResultUtil.returnSuccess(rateInfoList);
+            int i = super.rateService.addRate(addRateBO);
+            return ResultUtil.returnSuccess(i);
         } catch (Exception e) {
             logger.error("业务异常信息：[{}]", e.getMessage(), e);
         }

@@ -68,6 +68,17 @@ public class ErpRateInfo {
      */
     private String content;
 
+    @Column(name = "rate_id")
+    private Integer rateId;
+
+    public Integer getRateId() {
+        return rateId;
+    }
+
+    public void setRateId(Integer rateId) {
+        this.rateId = rateId;
+    }
+
     /**
      * 获取主键
      *

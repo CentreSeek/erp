@@ -19,4 +19,5 @@
     WHERE eci.status = 0 AND eci.contract_status = 0
     AND erfc.franchiser_id = #{franchiserId, jdbcType=INTEGER}
     </select>
+
 </mapper>

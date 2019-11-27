@@ -28,4 +28,17 @@
     WHERE ehi.`status` = 0 AND eri.`status` = 0
     ORDER BY FIELD(eri.`check_status`,0,1,2,3)
     </select>
+
+    <update id="updateRateId" parameterType="com.yjjk.erp.entity.pojo.ErpRateInfo">
+    update erp_record_info
+    set rate_id = #{rateId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where hospital_id = #{hospitalId,jdbcType=INTEGER} ORDER BY create_time desc LIMIT 1
+  </update>
+
+    <select id="getByHospitalAndCompanyId" resultType="com.yjjk.erp.entity.pojo.ErpRecordInfo" parameterType="java.util.Map">
+    SELECT id, create_time, update_time, check_status, start_date, end_date, rate_id
+    FROM  erp_record_info
+    WHERE company_id = #{companyId,jdbcType=INTEGER} AND hospital_id = #{hospitalId,jdbcType=INTEGER}
+    </select>
 </mapper>

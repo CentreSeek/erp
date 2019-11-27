@@ -10,4 +10,11 @@ import java.util.List;
 public interface ErpRateInfoMapper extends MyMapper<ErpRateInfo> {
 
     List<RatesInfoVO> getRatesInfo(Integer hospitalId);
+
+    /**
+     * 获取进度id
+     * @param erpRateInfo
+     * @return
+     */
+    int selectId(ErpRateInfo erpRateInfo);
 }

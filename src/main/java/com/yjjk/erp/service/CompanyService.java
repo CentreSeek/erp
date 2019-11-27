@@ -17,4 +17,6 @@ public interface CompanyService{
      * @return
      */
     List<ListVO> getList(Integer franchiserId);
+
+    int getRelation(Integer companyId, Integer hospitalId);
 }
