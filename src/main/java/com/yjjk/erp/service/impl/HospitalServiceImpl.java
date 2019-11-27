@@ -5,6 +5,7 @@ import com.yjjk.erp.constant.RateEnum;
 import com.yjjk.erp.entity.bo.HospitalsInfoBO;
 import com.yjjk.erp.entity.pojo.ErpHospitalInfo;
 import com.yjjk.erp.entity.vo.HospitalsInfoVO;
+import com.yjjk.erp.entity.vo.ListVO;
 import com.yjjk.erp.entity.vo.PagedGridResult;
 import com.yjjk.erp.service.BaseService;
 import com.yjjk.erp.service.HospitalService;
@@ -41,5 +42,10 @@ public class HospitalServiceImpl extends BaseService implements HospitalService 
         erpHospitalInfo.setRateType(2);
         erpHospitalInfo.setUpdateTime(new Date());
         return super.erpHospitalInfoMapper.updateByPrimaryKeySelective(erpHospitalInfo);
+    }
+
+    @Override
+    public List<ListVO> getList() {
+        return super.erpHospitalInfoMapper.getList();
     }
 }

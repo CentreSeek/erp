@@ -27,7 +27,19 @@ public class RateController extends BaseController {
 
     @ApiOperation("备案详情记录")
     @RequestMapping(value = "/rates", method = RequestMethod.GET)
-    public CommonResult<List<RatesInfoVO>> getHospitalInfo(@ApiParam(value = "医院id") @RequestParam("hospitalId") Integer hospitalId) {
+    public CommonResult<List<RatesInfoVO>> getHospitalRate(@ApiParam(value = "医院id") @RequestParam("hospitalId") Integer hospitalId) {
+        try {
+            List<RatesInfoVO> rateInfoList = super.rateService.getRateInfoList(hospitalId);
+            return ResultUtil.returnSuccess(rateInfoList);
+        } catch (Exception e) {
+            logger.error("业务异常信息：[{}]", e.getMessage(), e);
+        }
+        return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+    }
+
+    @ApiOperation("备案详情记录")
+    @RequestMapping(value = "/rates", method = RequestMethod.GET)
+    public CommonResult<List<RatesInfoVO>> getCompanyRate(@ApiParam(value = "companyId") @RequestParam("hospitalId") Integer hospitalId) {
         try {
             List<RatesInfoVO> rateInfoList = super.rateService.getRateInfoList(hospitalId);
             return ResultUtil.returnSuccess(rateInfoList);

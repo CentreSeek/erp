@@ -1,22 +1,19 @@
 package com.yjjk.erp.controller;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.yjjk.erp.configer.CommonResult;
+import com.yjjk.erp.constant.ErrorCodeEnum;
+import com.yjjk.erp.entity.Info.ContractInfo;
+import com.yjjk.erp.entity.Info.CurrencyModel;
+import com.yjjk.erp.utility.ResultUtil;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yjjk.erp.configer.CommonResult;
-import com.yjjk.erp.constant.ErrorCodeEnum;
-import com.yjjk.erp.entity.Info.ContractInfo;
-import com.yjjk.erp.entity.Info.CurrencyModel;
-import com.yjjk.erp.utility.ResultUtil;
-
-import io.swagger.annotations.ApiOperation;
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @program: YjjkErp
@@ -87,8 +84,6 @@ private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserControlle
 		} catch (Exception e) {
 			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
 			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
-
 		}
 	}
-	
 }

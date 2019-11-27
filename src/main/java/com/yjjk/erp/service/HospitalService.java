@@ -1,7 +1,10 @@
 package com.yjjk.erp.service;
 
 import com.yjjk.erp.entity.bo.HospitalsInfoBO;
+import com.yjjk.erp.entity.vo.ListVO;
 import com.yjjk.erp.entity.vo.PagedGridResult;
+
+import java.util.List;
 
 /**
  * @program: YjjkErp
@@ -24,5 +27,11 @@ public interface HospitalService {
      * @return
      */
     int collaborate(Integer hospitalId);
+
+    /**
+     * 获取新增医院备案下拉列表
+     * @return
+     */
+    List<ListVO> getList();
 
 }

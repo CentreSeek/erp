@@ -23,9 +23,13 @@
     CONCAT(eri.`start_date`,'至',eri.`end_date`) AS recordValidityDate,erai.rate_type AS rateTypeRate,
     DATE_FORMAT(erai.create_time,'%Y-%m-%d') AS createTimeRate
     FROM  erp_hospital_info ehi
-    LEFT JOIN erp_record_info eri ON eri.`hospital_id` = ehi.`id` AND eri.`status` = 0
+    LEFT JOIN erp_record_info eri ON eri.`hospital_id` = ehi.`id` AND eri.`status` = 0 and ehi.rate_type = 1
     LEFT JOIN erp_rate_info erai ON erai.id = eri.`rate_id`
     WHERE ehi.`status` = 0
-    ORDER BY FIELD(ehi.`rate_type`,2,1,3,0)
+    ORDER BY FIELD(ehi.`rate_type`,1,2,3,0)
+    </select>
+
+    <select id="getList" resultType="com.yjjk.erp.entity.vo.ListVO">
+    SELECT id,NAME FROM erp_hospital_info WHERE rate_type IN (0,3)
     </select>
 </mapper>

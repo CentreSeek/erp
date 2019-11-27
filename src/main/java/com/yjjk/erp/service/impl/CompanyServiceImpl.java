@@ -1,8 +1,11 @@
 package com.yjjk.erp.service.impl;
 
+import com.yjjk.erp.entity.vo.ListVO;
 import com.yjjk.erp.service.BaseService;
 import com.yjjk.erp.service.CompanyService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @program: YjjkErp
@@ -12,4 +15,8 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class CompanyServiceImpl extends BaseService implements CompanyService {
+    @Override
+    public List<ListVO> getList(Integer franchiserId) {
+        return super.erpCompanyInfoMapper.getList(franchiserId);
+    }
 }

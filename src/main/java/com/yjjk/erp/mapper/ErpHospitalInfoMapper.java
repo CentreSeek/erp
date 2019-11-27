@@ -3,6 +3,7 @@ package com.yjjk.erp.mapper;
 
 import com.yjjk.erp.entity.pojo.ErpHospitalInfo;
 import com.yjjk.erp.entity.vo.HospitalsInfoVO;
+import com.yjjk.erp.entity.vo.ListVO;
 import com.yjjk.erp.my.mapper.MyMapper;
 
 import java.util.List;
@@ -14,4 +15,10 @@ public interface ErpHospitalInfoMapper extends MyMapper<ErpHospitalInfo> {
      * @return
      */
     List<HospitalsInfoVO> getHospitalsInfo();
+
+    /**
+     * 获取新增医院备案下拉列表
+     * @return
+     */
+    List<ListVO> getList();
 }

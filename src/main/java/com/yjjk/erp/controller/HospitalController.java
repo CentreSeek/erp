@@ -4,6 +4,7 @@ import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
 import com.yjjk.erp.entity.bo.HospitalsInfoBO;
 import com.yjjk.erp.entity.vo.HospitalsInfoVO;
+import com.yjjk.erp.entity.vo.ListVO;
 import com.yjjk.erp.entity.vo.PagedGridResult;
 import com.yjjk.erp.utility.ResultUtil;
 import io.swagger.annotations.Api;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @program: YjjkErp
@@ -45,6 +48,19 @@ public class HospitalController extends BaseController {
 
             int collaborate = super.hospitalService.collaborate(hospitalId);
             return ResultUtil.returnSuccess(collaborate);
+        } catch (Exception e) {
+            logger.error("业务异常信息：[{}]", e.getMessage(), e);
+        }
+        return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+    }
+
+    @ApiOperation("获取新增医院备案医院下拉列表")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public CommonResult<List<ListVO>> getList() {
+        try {
+
+            List<ListVO> list = super.hospitalService.getList();
+            return ResultUtil.returnSuccess(list);
         } catch (Exception e) {
             logger.error("业务异常信息：[{}]", e.getMessage(), e);
         }
