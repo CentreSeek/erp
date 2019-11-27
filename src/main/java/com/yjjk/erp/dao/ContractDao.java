@@ -35,6 +35,13 @@ public interface ContractDao {
 	 */
 	void updateContract(@Param(value = "userModel")ContractInfo userModel);
 
+	/**
+	 * 获取签约总数
+	 * 
+	 * @return
+	 */
+	Integer getcontractNum();
+
 
 
 }

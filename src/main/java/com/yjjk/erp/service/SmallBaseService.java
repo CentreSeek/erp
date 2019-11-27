@@ -17,7 +17,6 @@ public class SmallBaseService {
 	
 	 protected static Logger logger = LoggerFactory.getLogger(SmallBaseService.class);
 	
-	
 	@Autowired
 	Configure configure;
 	
@@ -25,19 +24,13 @@ public class SmallBaseService {
 	ManagerDao managerDao;
 	
 	@Autowired
-	FranchiserDao  franchiserDao;
+	FranchiserDao franchiserDao;
 	
 	@Autowired
 	ContractDao contractDao;
 	
 	@Autowired
 	CompanyDao companyDao;
-	
-	final static String APPID = "wxb21e2eb790f4ee9d";
-
-	final static String MCH_ID = "1553417871";
-
-	final static String KEY = "4e3ae26a673342f8970180aaf01b4a1d";
 	
 	/**
 	 * 获取当前完整时间

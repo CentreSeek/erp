@@ -43,7 +43,7 @@ public class Swagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)
                 // 用于定义api文档汇总信息
                 .apiInfo(new ApiInfoBuilder()
-                        .title("寻央大大的接口管理功能")
+                        .title("项目接口管理功能")
                         .description("ERP商务管理系统")
                         .contact(new Contact("CentreS", null, "CentreSeek@126.com"))
                         .version("1.0")
