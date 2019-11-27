@@ -29,6 +29,15 @@
     ORDER BY FIELD(ehi.`rate_type`,1,2,3,4,0)
     </select>
 
+    <select id="getAllHospitalsInfo" resultType="com.yjjk.erp.entity.vo.AllHospitalsInfoVO">
+    SELECT ehi.`id`,ehi.`name`,ehi.`rate_type`,
+    eri.`end_date`
+    FROM  erp_hospital_info ehi
+    LEFT JOIN erp_record_info eri ON eri.`hospital_id` = ehi.`id` AND eri.`status` = 0 and ehi.rate_type = 1
+    WHERE ehi.`status` = 0
+    ORDER BY FIELD(ehi.`rate_type`,1,2,3,4,0)
+    </select>
+
     <select id="getList" resultType="com.yjjk.erp.entity.vo.ListVO">
     SELECT id,NAME FROM erp_hospital_info WHERE rate_type IN (0,3,4)
     </select>

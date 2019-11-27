@@ -3,6 +3,7 @@ package com.yjjk.erp.controller;
 import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
 import com.yjjk.erp.entity.bo.HospitalsInfoBO;
+import com.yjjk.erp.entity.vo.AllHospitalsInfoVO;
 import com.yjjk.erp.entity.vo.HospitalsInfoVO;
 import com.yjjk.erp.entity.vo.ListVO;
 import com.yjjk.erp.entity.vo.PagedGridResult;
@@ -34,6 +35,18 @@ public class HospitalController extends BaseController {
         try {
 
             PagedGridResult hospitalInfo = super.hospitalService.getHospitalInfo(hospitalsInfoBO);
+            return ResultUtil.returnSuccess(hospitalInfo);
+        } catch (Exception e) {
+            logger.error("业务异常信息：[{}]", e.getMessage(), e);
+        }
+        return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+    }
+
+    @ApiOperation("查询所有医院信息list")
+    @RequestMapping(value = "/allHospitalList", method = RequestMethod.GET)
+    public CommonResult<List<AllHospitalsInfoVO>> getAllHospitalInfo() {
+        try {
+            List<AllHospitalsInfoVO> hospitalInfo = super.hospitalService.getAllHospitalInfo();
             return ResultUtil.returnSuccess(hospitalInfo);
         } catch (Exception e) {
             logger.error("业务异常信息：[{}]", e.getMessage(), e);

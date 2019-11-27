@@ -17,11 +17,10 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @ApiModel("医院信息")
 public class HospitalsInfoBO {
-
-    @ApiModelProperty(required = true)
     @NotNull
+    @ApiModelProperty(required = true)
     private Integer page;
-    @ApiModelProperty(required = true)
     @NotNull
+    @ApiModelProperty(required = true)
     private Integer pageSize;
 }

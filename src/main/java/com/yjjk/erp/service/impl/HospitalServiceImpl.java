@@ -1,11 +1,13 @@
 package com.yjjk.erp.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.yjjk.erp.constant.HistoryEnum;
 import com.yjjk.erp.constant.RateEnum;
 import com.yjjk.erp.entity.bo.HospitalsInfoBO;
 import com.yjjk.erp.entity.pojo.ErpCompanyInfo;
 import com.yjjk.erp.entity.pojo.ErpHospitalInfo;
 import com.yjjk.erp.entity.pojo.ErpRecordInfo;
+import com.yjjk.erp.entity.vo.AllHospitalsInfoVO;
 import com.yjjk.erp.entity.vo.HospitalsInfoVO;
 import com.yjjk.erp.entity.vo.ListVO;
 import com.yjjk.erp.entity.vo.MyHospitalsVO;
@@ -41,6 +43,15 @@ public class HospitalServiceImpl extends BaseService implements HospitalService 
             }
         }
         return setterPagedGrid(hospitalsInfo, hospitalsInfoBO.getPage());
+    }
+
+    @Override
+    public List<AllHospitalsInfoVO> getAllHospitalInfo() {
+        List<AllHospitalsInfoVO> allHospitalsInfo = super.erpHospitalInfoMapper.getAllHospitalsInfo();
+        for (AllHospitalsInfoVO iter : allHospitalsInfo) {
+            iter.setRateTypeName(HistoryEnum.getTypeName(iter.getRateType()));
+        }
+        return allHospitalsInfo;
     }
 
     @Override

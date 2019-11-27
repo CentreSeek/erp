@@ -2,6 +2,7 @@ package com.yjjk.erp.mapper;
 
 
 import com.yjjk.erp.entity.pojo.ErpHospitalInfo;
+import com.yjjk.erp.entity.vo.AllHospitalsInfoVO;
 import com.yjjk.erp.entity.vo.HospitalsInfoVO;
 import com.yjjk.erp.entity.vo.ListVO;
 import com.yjjk.erp.entity.vo.MyHospitalsVO;
@@ -16,6 +17,12 @@ public interface ErpHospitalInfoMapper extends MyMapper<ErpHospitalInfo> {
      * @return
      */
     List<HospitalsInfoVO> getHospitalsInfo();
+
+    /**
+     * 获取所有医院信息
+     * @return
+     */
+    List<AllHospitalsInfoVO> getAllHospitalsInfo();
 
     /**
      * 获取新增医院备案下拉列表
