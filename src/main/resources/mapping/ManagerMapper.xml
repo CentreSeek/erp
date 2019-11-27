@@ -16,6 +16,16 @@
 		#{userModel.start},#{userModel.end}
 	</select>
 
+	<!-- 获取管理员名称和id -->
+	<select id="getManager" resultType="com.yjjk.erp.entity.Info.ManangerUserModel">
+		select manager_id
+		managerId,name from
+		erp_manager_info
+		where 1 =1
+		and status = 0
+		and gender != 0
+	</select>
+
 	<!-- 获取角色列表 -->
 	<select id="RoleList" resultType="com.yjjk.erp.entity.Info.ManangerUserModel">
 		select role_gender
@@ -83,15 +93,17 @@
 		where 1= 1
 		and id = #{userModel.managerId}
 	</update>
-	
+
 	<!-- 获取管理员密码 -->
-	<select id="getManagerPassWord" parameterType="String" resultType="Integer">
+	<select id="getManagerPassWord" parameterType="String"
+		resultType="Integer">
 		select manager_id from
 		erp_manager_info
 		where 1 =1
-		and phone = #{phone}
+		and phone =
+		#{phone}
 	</select>
-	
+
 	<!-- 确认Token是否存在 -->
 	<select id="checkToken" parameterType="String" resultType="Integer">
 		select manager_id from
@@ -99,28 +111,32 @@
 		where 1 =1
 		and token = #{token}
 		and ip = #{ip}
-		and login_out>NOW()-30*60 
+		and login_out>NOW()-30*60
 	</select>
-	
+
 	<!-- 获取token信息 -->
-	<select id="getTokeInfo" parameterType="Integer" resultType="com.yjjk.erp.entity.Info.YjLoginState">
-		select token,ip,manager_id managerId,login_out loginOutTime,status status from
+	<select id="getTokeInfo" parameterType="Integer"
+		resultType="com.yjjk.erp.entity.Info.YjLoginState">
+		select token,ip,manager_id managerId,login_out
+		loginOutTime,status status from
 		erp_login_state
 		where 1 =1
-		and manager_id = #{managerId}
+		and manager_id
+		= #{managerId}
 	</select>
-	
+
 	<!-- 更新token信息 -->
 	<update id="updateTokenInfo" parameterType="com.yjjk.erp.entity.Info.YjLoginState">
 		update
 		erp_login_state set
 		ip = #{yj.ip},
 		login_out = #{yj.loginOutTime}
-		status = #{yj.status}
+		status
+		= #{yj.status}
 		where 1= 1
 		and manager_id = #{yj.managerId}
 	</update>
-	
+
 	<!-- 新增token信息 -->
 	<insert id="addTokenInfo" parameterType="com.yjjk.erp.entity.Info.YjLoginState">
 		insert into
@@ -138,11 +154,11 @@
 		#{yj.status}
 		)
 	</insert>
-	
+
 	<!-- 获取管理总数 -->
-	<select id="getmanagerNum"  resultType="Integer">
+	<select id="getmanagerNum" resultType="Integer">
 		select COUNT(name) from
 		erp_manager_info
 	</select>
-	
+
 </mapper>

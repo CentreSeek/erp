@@ -21,6 +21,13 @@ public interface ManagerDao {
 	 * @return
 	 */
 	List<ManangerUserModel> managerList(@Param(value = "userModel") CurrencyModel userModel);
+	
+	/**
+	 * 获取管理员名称和id
+	 * 
+	 * @return
+	 */
+	List<ManangerUserModel> getManager();
 
 	/**
 	 * 获取角色列表
