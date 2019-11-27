@@ -95,7 +95,7 @@ public class FranchiserService extends SmallBaseService {
 						franchiserDao.updateUserToOpenId(fran);
 					}
 					
-					return getfranchiserInfo(id);
+					return getfranchiserInfo(fran.getFranchiserId());
 				} else {
 					return ResultUtil.returnError("300","密码错误");
 				}
