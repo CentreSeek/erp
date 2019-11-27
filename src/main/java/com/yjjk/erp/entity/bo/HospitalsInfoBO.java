@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @program: YjjkErp
  * @description: 医院信息
@@ -17,7 +19,9 @@ import lombok.experimental.Accessors;
 public class HospitalsInfoBO {
 
     @ApiModelProperty(required = true)
+    @NotNull
     private Integer page;
     @ApiModelProperty(required = true)
+    @NotNull
     private Integer pageSize;
 }
