@@ -19,7 +19,7 @@ public class AllHospitalsInfoVO {
     private Integer id;
     @ApiModelProperty("医院名称")
     private String name;
-    @ApiModelProperty("状态 0：未备案 1：已备案 2：已合作 3：已失效")
+    @ApiModelProperty("状态 0：未备案 1：已备案 2：已合作")
     private Integer rateType;
     @ApiModelProperty("状态名称")
     private String rateTypeName;

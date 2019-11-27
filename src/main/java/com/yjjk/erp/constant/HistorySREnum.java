@@ -11,19 +11,19 @@ import java.util.Map;
  * @author: CentreS
  * @create: 2019-11-25 20:56:45
  **/
-public enum HistoryEnum {
+public enum HistorySREnum {
     RATE_TYPE_NON_RECORD(0, "未备案"),
     RATE_TYPE_RECORD(1, "已备案"),
     RATE_TYPE_COLLABORATE(2, "已合作"),
-    RATE_TYPE_STOP(3, "已终止"),
-    RATE_TYPE_PAST(4, "已过期"),
+    RATE_TYPE_STOP(3, "未备案"),
+    RATE_TYPE_PAST(4, "未备案"),
     ;
 
     private Integer rateType;
 
     private String typeName;
 
-    HistoryEnum(Integer rateType, String typeName) {
+    HistorySREnum(Integer rateType, String typeName) {
         this.rateType = rateType;
         this.typeName = typeName;
     }
@@ -33,7 +33,7 @@ public enum HistoryEnum {
     }
 
     public static String getTypeName(Integer rateType) {
-        for (HistoryEnum r : HistoryEnum.values()) {
+        for (HistorySREnum r : HistorySREnum.values()) {
             if (rateType.equals(r.getRateType())) {
                 return r.typeName;
             }
@@ -42,7 +42,7 @@ public enum HistoryEnum {
     }
     public static String getJson() {
         Map<Object,Object> map = new HashMap<>();
-        for (HistoryEnum r : HistoryEnum.values()) {
+        for (HistorySREnum r : HistorySREnum.values()) {
             map.put(r.rateType,r.typeName);
         }
         String s = JSON.toJSONString(map);
