@@ -127,7 +127,7 @@ public class HospitalServiceImpl extends BaseService implements HospitalService 
         return myHospitals;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = RuntimeException.class)
     @Override
     public int stopCollaborate(Integer hospitalId) {
         ErpHospitalInfo erpHospitalInfo = new ErpHospitalInfo();
