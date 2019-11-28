@@ -44,10 +44,11 @@ public class RecordsInfoVO {
      */
     @ApiModelProperty("审核状态")
     private String checkStatus;
-
+    @ApiModelProperty("审核状态type")
     private Integer checkStatusInt;
 
     public void setCheckStatusInt(Integer checkStatusInt) {
+        this.checkStatusInt = checkStatusInt;
         this.checkStatus = RecordEnum.getTypeName(checkStatusInt);
     }
 

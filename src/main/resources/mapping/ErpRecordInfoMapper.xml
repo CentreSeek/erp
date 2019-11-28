@@ -15,18 +15,19 @@
         <result column="start_date" property="startDate" jdbcType="VARCHAR"/>
         <result column="end_date" property="endDate" jdbcType="VARCHAR"/>
         <result column="rate_id" property="rateId" jdbcType="INTEGER"/>
+        <result column="franchiser_id" property="franchiserId" jdbcType="INTEGER"/>
     </resultMap>
 
     <select id="getRecordsInfo" resultType="com.yjjk.erp.entity.vo.RecordsInfoVO">
-    SELECT eri.id,DATE_FORMAT(eri.create_time,'%Y-%m-%d %H:%i') AS createTime, eci.name as companyName,
-    CONCAT(erai.user_name,'<![CDATA[<]]>br<![CDATA[>]]>',erai.user_phone) AS franchiserInfo,ehi.name as hospitalName,
-	eri.`check_status` AS checkStatusInt,CONCAT(eri.`start_date`,' ~ ',eri.`end_date`) AS recordValidityDate
-    FROM  erp_record_info eri
-    LEFT JOIN erp_hospital_info ehi ON eri.`hospital_id` = ehi.`id`
-    LEFT JOIN erp_rate_info erai ON erai.id = eri.`rate_id`
-    LEFT JOIN erp_company_info eci ON eri.company_id = eci.company_id AND eci.status = 0
-    WHERE ehi.`status` = 0 AND eri.`status` = 0
-    ORDER BY FIELD(eri.`check_status`,0,1,2,3)
+        SELECT eri.id,DATE_FORMAT(eri.create_time,'%Y-%m-%d %H:%i') AS createTime, eci.name AS companyName,
+        CONCAT(erai.name,'<![CDATA[<br/>]]>',erai.phone) AS franchiserInfo,ehi.name AS hospitalName,
+        eri.`check_status` AS checkStatusInt,CONCAT(eri.`start_date`,' ~ ',eri.`end_date`) AS recordValidityDate
+        FROM  erp_record_info eri
+        LEFT JOIN erp_hospital_info ehi ON eri.`hospital_id` = ehi.`id`
+        LEFT JOIN erp_company_info eci ON eri.company_id = eci.company_id AND eci.status = 0
+        LEFT JOIN `erp_franchiser_info` erai ON erai.`franchiser_id` = eri.`franchiser_id`
+        WHERE ehi.`status` = 0 AND eri.`status` = 0
+        ORDER BY FIELD(eri.`check_status`,0,1,2,3)
     </select>
 
     <update id="updateRateId" parameterType="com.yjjk.erp.entity.pojo.ErpRateInfo">
@@ -36,9 +37,17 @@
     where hospital_id = #{hospitalId,jdbcType=INTEGER} ORDER BY create_time desc LIMIT 1
   </update>
 
-    <select id="getByHospitalAndCompanyId" resultType="com.yjjk.erp.entity.pojo.ErpRecordInfo" parameterType="java.util.Map">
+    <select id="getByHospitalAndCompanyId" resultType="com.yjjk.erp.entity.pojo.ErpRecordInfo"
+            parameterType="java.util.Map">
     SELECT id, create_time, update_time, check_status, start_date, end_date, rate_id
     FROM  erp_record_info
     WHERE company_id = #{companyId,jdbcType=INTEGER} AND hospital_id = #{hospitalId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getRecordCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT count(1)
+    FROM `erp_record_info` eri
+    WHERE eri.status = 0 AND eri.check_status = 0
+    and company_id = #{companyId,jdbcType=INTEGER}
     </select>
 </mapper>

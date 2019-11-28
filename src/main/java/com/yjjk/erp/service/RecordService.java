@@ -1,10 +1,11 @@
 package com.yjjk.erp.service;
 
 import com.yjjk.erp.constant.RecordEnum;
+import com.yjjk.erp.entity.bo.PageBO;
 import com.yjjk.erp.entity.pojo.ErpRecordInfo;
-import com.yjjk.erp.entity.vo.RecordsInfoVO;
+import com.yjjk.erp.entity.vo.PagedGridResult;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @program: YjjkErp
@@ -17,12 +18,14 @@ public interface RecordService {
 
     /**
      * 获取备案信息列表
+     * @param pageBO
      * @return
      */
-    List<RecordsInfoVO> getRecordsInfo();
+    PagedGridResult getRecordsInfo(PageBO pageBO);
 
     /**
      * 查询审核信息
+     *
      * @param recordId
      * @return
      */
@@ -30,6 +33,7 @@ public interface RecordService {
 
     /**
      * 修改record状态
+     *
      * @param recordId
      * @param checkStatus
      * @return
@@ -38,6 +42,7 @@ public interface RecordService {
 
     /**
      * 审核时间延期
+     *
      * @param recordInfo
      * @param calendarConstant
      * @param times
@@ -47,9 +52,17 @@ public interface RecordService {
 
     /**
      * 新增备案
+     *
      * @param hospitalId
      * @param companyId
      * @return
      */
-    int addRecord(Integer hospitalId, Integer companyId);
+    int addRecord(Integer hospitalId, Integer companyId, Integer franchiserId);
+
+    /**
+     * 获取已备案医院数量
+     * @param map
+     * @return
+     */
+    int getRecordCount(Map<String,Object> map);
 }

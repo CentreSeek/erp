@@ -18,5 +18,4 @@ public interface CompanyService{
      */
     List<ListVO> getList(Integer franchiserId);
 
-    int getRelation(Integer companyId, Integer hospitalId);
 }

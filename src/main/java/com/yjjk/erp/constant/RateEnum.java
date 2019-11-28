@@ -44,18 +44,22 @@ public enum RateEnum {
         }
         return null;
     }
+
     public static String getJson() {
-        Map<Object,Object> map = new HashMap<>();
+        Map<Object, Object> map = new HashMap<>();
         for (RateEnum r : RateEnum.values()) {
-            map.put(r.rateType,r.typeName);
+            map.put(r.rateType, r.typeName);
         }
         String s = JSON.toJSONString(map);
         return s;
     }
+
     public static List getList() {
-        List<RateEnum> list = new ArrayList<>();
+        List<Map<Integer, String>> list = new ArrayList<>();
         for (RateEnum r : RateEnum.values()) {
-            list.add(r);
+            Map<Integer, String> map = new HashMap<>();
+            map.put(r.rateType, r.typeName);
+            list.add(map);
         }
         return list;
     }
@@ -66,5 +70,9 @@ public enum RateEnum {
                 "rateType=" + rateType +
                 ", typeName='" + typeName + '\'' +
                 '}';
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getList());
     }
 }

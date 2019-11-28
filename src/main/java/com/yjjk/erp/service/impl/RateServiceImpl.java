@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: YjjkErp
@@ -24,8 +26,11 @@ import java.util.List;
 @Service
 public class RateServiceImpl extends BaseService implements RateService {
     @Override
-    public List<RatesInfoVO> getRateInfoList(Integer hospitalId) {
-        return super.erpRateInfoMapper.getRatesInfo(hospitalId);
+    public List<RatesInfoVO> getRateInfoList(Integer hospitalId, Integer companyId) {
+        Map<String,Object> map  = new HashMap<>();
+        map.put("hospitalId",hospitalId);
+        map.put("companyId",companyId);
+        return super.erpRateInfoMapper.getRatesInfo(map);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)

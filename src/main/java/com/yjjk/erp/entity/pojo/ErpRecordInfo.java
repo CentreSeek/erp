@@ -64,6 +64,18 @@ public class ErpRecordInfo {
     @Column(name = "rate_id")
     private Integer rateId;
 
+    @Column(name = "franchiser_id")
+    private Integer franchiserId;
+
+    public Integer getFranchiserId() {
+        return franchiserId;
+    }
+
+    public void setFranchiserId(Integer franchiserId) {
+        this.franchiserId = franchiserId;
+    }
+
+
     /**
      * 获取主键
      *

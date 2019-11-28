@@ -1,9 +1,9 @@
 package com.yjjk.erp.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.yjjk.erp.constant.HistorySREnum;
+import com.yjjk.erp.constant.HistoryAPPEnum;
 import com.yjjk.erp.constant.RateEnum;
-import com.yjjk.erp.entity.bo.HospitalsInfoBO;
+import com.yjjk.erp.entity.bo.PageBO;
 import com.yjjk.erp.entity.pojo.ErpCompanyInfo;
 import com.yjjk.erp.entity.pojo.ErpHospitalInfo;
 import com.yjjk.erp.entity.pojo.ErpRecordInfo;
@@ -34,22 +34,22 @@ import java.util.Map;
 public class HospitalServiceImpl extends BaseService implements HospitalService {
 
     @Override
-    public PagedGridResult getHospitalInfo(HospitalsInfoBO hospitalsInfoBO) {
-        PageHelper.startPage(hospitalsInfoBO.getPage(), hospitalsInfoBO.getPageSize());
+    public PagedGridResult getHospitalInfo(PageBO pageBO) {
+        PageHelper.startPage(pageBO.getPage(), pageBO.getPageSize());
         List<HospitalsInfoVO> hospitalsInfo = super.erpHospitalInfoMapper.getHospitalsInfo();
         for (HospitalsInfoVO hospitalsInfoVO : hospitalsInfo) {
             if (hospitalsInfoVO.getRateTypeRate() != null) {
                 hospitalsInfoVO.setRateInfo(hospitalsInfoVO.getCreateTimeRate() + " " + RateEnum.getTypeName(hospitalsInfoVO.getRateType()));
             }
         }
-        return setterPagedGrid(hospitalsInfo, hospitalsInfoBO.getPage());
+        return setterPagedGrid(hospitalsInfo, pageBO.getPage());
     }
 
     @Override
     public List<AllHospitalsInfoVO> getAllHospitalInfo() {
         List<AllHospitalsInfoVO> allHospitalsInfo = super.erpHospitalInfoMapper.getAllHospitalsInfo();
         for (AllHospitalsInfoVO iter : allHospitalsInfo) {
-            iter.setRateTypeName(HistorySREnum.getTypeName(iter.getRateType()));
+            iter.setRateTypeName(HistoryAPPEnum.getTypeName(iter.getRateType()));
             if (iter.getRateType() == 3 || iter.getRateType() == 4) {
                 iter.setRateType(0);
             }
