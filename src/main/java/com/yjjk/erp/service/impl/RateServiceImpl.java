@@ -1,7 +1,9 @@
 package com.yjjk.erp.service.impl;
 
+import com.yjjk.erp.constant.RateEnum;
 import com.yjjk.erp.entity.bo.AddRateBO;
 import com.yjjk.erp.entity.pojo.ErpRateInfo;
+import com.yjjk.erp.entity.vo.MyRateVO;
 import com.yjjk.erp.entity.vo.RatesInfoVO;
 import com.yjjk.erp.service.BaseService;
 import com.yjjk.erp.service.RateService;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,10 +41,20 @@ public class RateServiceImpl extends BaseService implements RateService {
             throw new RuntimeException("插入进度异常");
         }
         erpRateInfo.setId(id);
+        erpRateInfo.setUpdateTime(new Date());
         int j = super.erpRecordInfoMapper.updateRateId(erpRateInfo);
         if (i == 0) {
             throw new RuntimeException("更新进度异常");
         }
-        return i;
+        return id;
+    }
+
+    @Override
+    public List<MyRateVO> getMyRate(Integer companyId) {
+        List<MyRateVO> myRate = super.erpRateInfoMapper.getMyRate(companyId);
+        for (MyRateVO myRateVO : myRate) {
+            myRateVO.setRateName(RateEnum.getTypeName(myRateVO.getRateType()));
+        }
+        return myRate;
     }
 }

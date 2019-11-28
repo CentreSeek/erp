@@ -2,7 +2,9 @@ package com.yjjk.erp.constant;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,6 +51,13 @@ public enum RateEnum {
         }
         String s = JSON.toJSONString(map);
         return s;
+    }
+    public static List getList() {
+        List<RateEnum> list = new ArrayList<>();
+        for (RateEnum r : RateEnum.values()) {
+            list.add(r);
+        }
+        return list;
     }
 
     @Override

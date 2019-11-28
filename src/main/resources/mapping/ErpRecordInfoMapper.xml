@@ -31,7 +31,7 @@
 
     <update id="updateRateId" parameterType="com.yjjk.erp.entity.pojo.ErpRateInfo">
     update erp_record_info
-    set rate_id = #{rateId,jdbcType=INTEGER},
+    set rate_id = #{id,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where hospital_id = #{hospitalId,jdbcType=INTEGER} ORDER BY create_time desc LIMIT 1
   </update>
