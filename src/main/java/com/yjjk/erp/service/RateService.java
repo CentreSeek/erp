@@ -19,7 +19,7 @@ public interface RateService {
      * @param hospitalId
      * @return
      */
-    List<RatesInfoVO> getRateInfoList(Integer hospitalId);
+    List<RatesInfoVO> getRateInfoList(Integer hospitalId, Integer companyId);
 
     /**
      * 新增进度

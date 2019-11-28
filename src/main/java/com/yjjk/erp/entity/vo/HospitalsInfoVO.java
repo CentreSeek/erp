@@ -15,6 +15,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ApiModel("医院信息")
 public class HospitalsInfoVO {
+
     @ApiModelProperty("医院id")
     private Integer id;
     @ApiModelProperty("医院名称")
@@ -23,7 +24,7 @@ public class HospitalsInfoVO {
     private String place;
     @ApiModelProperty("区县")
     private String area;
-    @ApiModelProperty("状态 0：未备案 1：已备案 2：已合作 3：已失效")
+    @ApiModelProperty("状态 1：已备案 2：已合作 3：已终止 4：已过期")
     private Integer rateType;
     @ApiModelProperty("维护人信息")
     private String userInfo;
@@ -32,7 +33,9 @@ public class HospitalsInfoVO {
     @ApiModelProperty("备案有效期")
     private String recordValidityDate;
 
+    @ApiModelProperty("公司id")
+    private Integer companyId;
+
     private Integer rateTypeRate;
     private String createTimeRate;
-
 }

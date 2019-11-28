@@ -27,9 +27,15 @@ public interface ErpRecordInfoMapper extends MyMapper<ErpRecordInfo> {
     int updateRateId(ErpRateInfo erpRateInfo);
 
     /**
-     *
      * @param paraMap
      * @return
      */
     ErpRecordInfo getByHospitalAndCompanyId(Map<String, Object> paraMap);
+
+    /**
+     * 获取未备案记录数
+     * @param map
+     * @return
+     */
+    int getRecordCount(Map<String, Object> map);
 }
