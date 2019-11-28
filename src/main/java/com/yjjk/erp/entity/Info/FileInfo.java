@@ -12,5 +12,7 @@ public class FileInfo {
 	private String fileName;
 	
 	private String createTime;
+	
+	private String downUrl;
 
 }
