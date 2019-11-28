@@ -1,6 +1,7 @@
 package com.yjjk.erp.service;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -70,6 +71,19 @@ public class SmallBaseService {
 		Date date = new Date();
 		String sendTime = sdf.format(date);
 		return sendTime;
+	};
+	
+	/**
+	 * 获取指定几个月前的时间
+	 */
+	public String getNeedTime(Integer month){
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.MONTH, -month);//得到前month个月
+		Date formNow3Month = calendar.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String sendTime = sdf.format(formNow3Month);
+		return sendTime;
+		
 	};
 
 }

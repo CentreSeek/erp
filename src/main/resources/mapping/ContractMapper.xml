@@ -9,12 +9,15 @@
 		createTime,b.name companyName,a.cooperation_scope cooperationScope,
 		a.user_name userName,a.phone phone,a.start_date startDate,a.end_date
 		endDate,c.name managerName,c.manager_id managerId,
-		a.contract_type contractType
+		a.contract_type
+		contractType
 		from
-		erp_contract_info a,erp_company_info b,erp_manager_info c
+		erp_contract_info a,erp_company_info
+		b,erp_manager_info c
 		where
 		b.company_id = a.company_id
-		and a.manager_id= c.manager_id
+		and a.manager_id=
+		c.manager_id
 		limit #{userModel.start},#{userModel.end}
 	</select>
 
@@ -44,7 +47,7 @@
 	</insert>
 
 	<!-- 修改签约 -->
-	<update id="updateContract" parameterType="com.yjjk.erp.entity.Info.ContractInfo" >
+	<update id="updateContract" parameterType="com.yjjk.erp.entity.Info.ContractInfo">
 		update erp_contract_info set
 		<if test="userModel.startDate != null and userModel.startDate != ''">
 			start_date = #{userModel.startDate},
@@ -55,7 +58,8 @@
 		<if test="userModel.contractType != null and userModel.contractType != ''">
 			contract_type = #{userModel.contractType},
 		</if>
-		<if test="userModel.cooperationScope != null and userModel.cooperationScope != ''">
+		<if
+			test="userModel.cooperationScope != null and userModel.cooperationScope != ''">
 			cooperation_scope = #{userModel.cooperationScope},
 		</if>
 		<if test="userModel.managerId != null and userModel.managerId != ''">
@@ -63,14 +67,78 @@
 		</if>
 		update_time = #{userModel.updateTime}
 		where 1= 1
-		and id = #{userModel.id}
-
+		and id =
+		#{userModel.id}
+		and contract_type = 0
 	</update>
-	
+
 	<!-- 获取签约总数 -->
-	<select id="getcontractNum"  resultType="Integer">
+	<select id="getcontractNum" resultType="Integer">
 		select COUNT(id) from
 		erp_contract_info
+	</select>
+
+	<!-- 修改过期协议 -->
+	<update id="clearContract" parameterType="String">
+		update erp_contract_info set
+		contract_type = 2
+		where 1= 1
+		and
+		contract_type = 0
+		and end_date <![CDATA[<]]>
+		#{nowTime}
+	</update>
+
+	<!-- 修改过期备案 -->
+	<update id="clearRecord" parameterType="String">
+		update erp_record_info set
+		check_status = 3
+		where 1= 1
+		and check_status =
+		1
+		and end_date <![CDATA[<]]>
+		#{nowTime}
+	</update>
+
+	<!-- 获取过期备案的医院id -->
+	<select id="getOldRecord" parameterType="String" resultType="Integer">
+		select hospital_id from
+		erp_record_info
+		where 1= 1
+		and check_status = 1
+		and end_date <![CDATA[<]]>
+		#{nowTime}
+	</select>
+
+	<!-- 修改过期备案的医院信息 -->
+	<update id="clearHostpital" parameterType="Integer">
+		update
+		erp_hospital_info set
+		rate_type = 4
+		where 1= 1
+		and rate_type = 1
+		and id =
+		#{hospital}
+	</update>
+
+	<!-- 获取下载文件指定名称 -->
+	<select id="getFile" parameterType="Integer" resultType="String">
+		select
+		file_name from
+		erp_file_info
+		where 1= 1
+		and file_id = #{id}
+		and status = 0
+	</select>
+
+	<!-- 获取可下载文件列表 -->
+	<select id="getFiles" resultType="com.yjjk.erp.entity.Info.FileInfo">
+		select
+		file_name
+		fileName,file_id fileId from
+		erp_file_info
+		where 1= 1
+		and status = 0
 	</select>
 
 </mapper>

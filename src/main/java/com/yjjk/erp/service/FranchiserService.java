@@ -155,6 +155,7 @@ public class FranchiserService extends SmallBaseService {
 	 * 
 	 * @return
 	 */
+	@Transactional
 	public boolean XCXLoginOut(String openId) {
 		FranchiserUserModel  userModel= new FranchiserUserModel();
 		userModel.setUpdateTime(getAllTime());
