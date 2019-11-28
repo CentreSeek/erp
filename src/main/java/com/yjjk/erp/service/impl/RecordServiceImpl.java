@@ -3,7 +3,6 @@ package com.yjjk.erp.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.yjjk.erp.constant.RecordEnum;
 import com.yjjk.erp.entity.bo.PageBO;
-import com.yjjk.erp.entity.pojo.ErpHospitalInfo;
 import com.yjjk.erp.entity.pojo.ErpRecordInfo;
 import com.yjjk.erp.entity.pojo.ErpRelationCompanyHospital;
 import com.yjjk.erp.entity.vo.PagedGridResult;
@@ -71,17 +70,17 @@ public class RecordServiceImpl extends BaseService implements RecordService {
         erpRecordInfo.setStatus(0);
         int i = super.erpRecordInfoMapper.insertSelective(erpRecordInfo);
 
-        ErpHospitalInfo erpHospitalInfo = new ErpHospitalInfo();
-        erpHospitalInfo.setId(hospitalId);
-        erpHospitalInfo.setUpdateTime(new Date());
-        erpHospitalInfo.setRateType(1);
-        int j = super.erpHospitalInfoMapper.updateByPrimaryKeySelective(erpHospitalInfo);
+//        ErpHospitalInfo erpHospitalInfo = new ErpHospitalInfo();
+//        erpHospitalInfo.setId(hospitalId);
+//        erpHospitalInfo.setUpdateTime(new Date());
+//        erpHospitalInfo.setRateType(1);
+//        int j = super.erpHospitalInfoMapper.updateByPrimaryKeySelective(erpHospitalInfo);
 
         ErpRelationCompanyHospital erpRelationCompanyHospital = new ErpRelationCompanyHospital();
         erpRelationCompanyHospital.setCompanyId(companyId);
         erpRelationCompanyHospital.setHospitalId(hospitalId);
         int z = super.erpRelationCompanyHospitalMapper.insertSelective(erpRelationCompanyHospital);
-        if (i == 0 || j == 0 || z == 0){
+        if (i == 0 || z == 0){
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return i;

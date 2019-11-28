@@ -16,7 +16,8 @@
     <select id="getCompanyId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT company_id
         from erp_relation_company_hospital
-        WHERE hospital_id = #{hospitalId,jdbcType=INTEGER};
+        WHERE hospital_id = #{hospitalId,jdbcType=INTEGER}
+        order by create_time desc limit 1;
   </select>
 
 </mapper>

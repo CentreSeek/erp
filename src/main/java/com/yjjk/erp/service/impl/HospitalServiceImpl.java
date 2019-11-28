@@ -1,7 +1,7 @@
 package com.yjjk.erp.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.yjjk.erp.constant.HistorySREnum;
+import com.yjjk.erp.constant.HistoryAPPEnum;
 import com.yjjk.erp.constant.RateEnum;
 import com.yjjk.erp.entity.bo.PageBO;
 import com.yjjk.erp.entity.pojo.ErpCompanyInfo;
@@ -49,7 +49,7 @@ public class HospitalServiceImpl extends BaseService implements HospitalService 
     public List<AllHospitalsInfoVO> getAllHospitalInfo() {
         List<AllHospitalsInfoVO> allHospitalsInfo = super.erpHospitalInfoMapper.getAllHospitalsInfo();
         for (AllHospitalsInfoVO iter : allHospitalsInfo) {
-            iter.setRateTypeName(HistorySREnum.getTypeName(iter.getRateType()));
+            iter.setRateTypeName(HistoryAPPEnum.getTypeName(iter.getRateType()));
             if (iter.getRateType() == 3 || iter.getRateType() == 4) {
                 iter.setRateType(0);
             }
