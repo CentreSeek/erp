@@ -17,6 +17,7 @@ import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
 import com.yjjk.erp.entity.Info.ContractInfo;
 import com.yjjk.erp.entity.Info.CurrencyModel;
+import com.yjjk.erp.entity.Info.FileInfo;
 import com.yjjk.erp.entity.Info.ListData;
 import com.yjjk.erp.entity.vo.ListVO;
 import com.yjjk.erp.utility.DownLoadFile;
@@ -99,17 +100,44 @@ private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserControlle
 		}
 	}
 	
+	/**
+	 * 下载公司资料
+	 * 
+	 * @param userModel
+	 * @return
+	 */
     @ApiOperation("下载公司资料")
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public CommonResult getList(HttpServletRequest request,HttpServletResponse response) {
+    public void getList(@ApiParam(value = "所需文件") @RequestParam(value = "ids") List<Integer> ids,HttpServletRequest request,HttpServletResponse response) {
         try {
-        	DownLoadFile.downloadFile(request,response);
+        	for (Integer id : ids) {
+        		String name =contractService.getFile(id);
+        		DownLoadFile.downloadFile(name,request,response);
+			}
+        	
             
-            return ResultUtil.returnSuccess("");
         } catch (Exception e) {
             logger.error("业务异常信息：[{}]", e.getMessage(), e);
         }
-        return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
     }
+    
+	/**
+	 * 获取可下载文件列表
+	 * 
+	 * @return
+	 */
+	@ApiOperation("获取可下载文件列表")
+	@RequestMapping(value = "/getFiles", method = RequestMethod.POST)
+	public CommonResult getFiles() {
+		try {
+			List<FileInfo> files = contractService.getFiles();
+			return ResultUtil.returnSuccess(files);
+
+		} catch (Exception e) {
+			LOGGER.error("业务异常信息：[{}]", e.getMessage(), e);
+			return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+
+		}
+	}
 	
 }

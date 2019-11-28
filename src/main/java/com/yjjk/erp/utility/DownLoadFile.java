@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class DownLoadFile {
 
-	public static String downloadFile(HttpServletRequest request, HttpServletResponse response)
+	public static String downloadFile(String name,HttpServletRequest request, HttpServletResponse response)
 			throws UnsupportedEncodingException {
 
 		// 获取指定目录下的第一个文件
-		File scFileDir = new File("E://music_eg");
-		File TrxFiles[] = scFileDir.listFiles();
-		System.out.println(TrxFiles[0]);
-		String fileName = TrxFiles[0].getName(); // 下载的文件名
+//		File scFileDir = new File("E://music_eg");
+//		File TrxFiles[] = scFileDir.listFiles();
+//		
+//		String fileName = TrxFiles[0].getName(); // 下载的文件名
 
 		// 如果文件名不为空，则进行下载
-		if (fileName != null) {
+		if (name != null) {
 			// 设置文件路径
 			String realPath = "E://music_eg/";
-			File file = new File(realPath, fileName);
+			File file = new File(realPath, name);
 
 			// 如果文件名存在，则进行下载
 			if (file.exists()) {
@@ -33,7 +33,7 @@ public class DownLoadFile {
 				response.setContentType("application/octet-stream");
 				// 下载文件能正常显示中文
 				response.setHeader("Content-Disposition",
-						"attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+						"attachment;filename=" + URLEncoder.encode(name, "UTF-8"));
 
 				// 实现文件下载
 				byte[] buffer = new byte[1024];

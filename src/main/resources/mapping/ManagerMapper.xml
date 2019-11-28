@@ -111,7 +111,7 @@
 		where 1 =1
 		and token = #{token}
 		and ip = #{ip}
-		and login_out>NOW()-30*60
+		and login_out<![CDATA[>]]>NOW()-30*60
 	</select>
 
 	<!-- 获取token信息 -->
