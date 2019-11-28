@@ -2,12 +2,15 @@ package com.yjjk.erp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yjjk.erp.configer.CommonResult;
@@ -15,10 +18,13 @@ import com.yjjk.erp.constant.ErrorCodeEnum;
 import com.yjjk.erp.entity.Info.ContractInfo;
 import com.yjjk.erp.entity.Info.CurrencyModel;
 import com.yjjk.erp.entity.Info.ListData;
+import com.yjjk.erp.entity.vo.ListVO;
+import com.yjjk.erp.utility.DownLoadFile;
 import com.yjjk.erp.utility.ResultUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * @program: YjjkErp
@@ -92,5 +98,18 @@ private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserControlle
 
 		}
 	}
+	
+    @ApiOperation("下载公司资料")
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public CommonResult getList(HttpServletRequest request,HttpServletResponse response) {
+        try {
+        	DownLoadFile.downloadFile(request,response);
+            
+            return ResultUtil.returnSuccess("");
+        } catch (Exception e) {
+            logger.error("业务异常信息：[{}]", e.getMessage(), e);
+        }
+        return ResultUtil.returnError(ErrorCodeEnum.UNKNOWN_ERROR);
+    }
 	
 }

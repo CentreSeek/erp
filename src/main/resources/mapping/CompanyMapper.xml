@@ -3,7 +3,7 @@
 <mapper namespace="com.yjjk.erp.dao.CompanyDao">
 
 	<!-- 查询公司id -->
-	<select id="getcompanyId" parameterType="String">
+	<select id="getcompanyId" parameterType="String" resultType="Integer">
 		select company_id from erp_company_info
 		where name = #{name}
 	</select>

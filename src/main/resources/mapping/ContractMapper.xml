@@ -39,7 +39,7 @@
 		#{userModel.endDate},
 		#{userModel.cooperationScope},
 		#{userModel.managerId},
-		#{userModel.contractType}
+		0
 		)
 	</insert>
 

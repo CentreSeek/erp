@@ -130,7 +130,7 @@
 		update
 		erp_login_state set
 		ip = #{yj.ip},
-		login_out = #{yj.loginOutTime}
+		login_out = #{yj.loginOutTime},
 		status
 		= #{yj.status}
 		where 1= 1
