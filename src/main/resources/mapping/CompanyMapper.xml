@@ -3,7 +3,7 @@
 <mapper namespace="com.yjjk.erp.dao.CompanyDao">
 
 	<!-- 查询公司id -->
-	<select id="getcompanyId" parameterType="String">
+	<select id="getcompanyId" parameterType="String" resultType="Integer">
 		select company_id from erp_company_info
 		where name = #{name}
 	</select>
@@ -27,6 +27,7 @@
 		from erp_company_info a,erp_relation_franchiser_company b
 		where 1 = 1 
 		and a.contract_status = 0
+		and b.status = 0
 		and a.company_id != b.company_id
 		and b.franchiser_id = #{id}
 	</select>
