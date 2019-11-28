@@ -12,6 +12,7 @@
 		where a.gender =
 		b.role_gender
 		and status = 0
+		and manager_id != 1
 		limit
 		#{userModel.start},#{userModel.end}
 	</select>
