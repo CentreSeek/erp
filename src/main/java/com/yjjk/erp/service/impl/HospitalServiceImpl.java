@@ -94,6 +94,7 @@ public class HospitalServiceImpl extends BaseService implements HospitalService 
             ErpRecordInfo recordInfo = super.erpRecordInfoMapper.getByHospitalAndCompanyId(paraMap);
             switch (myHospital.getRateType()) {
                 case 0:
+                    myHospital.setRateName("备案申请中").setRateType(0).setCreateTime(DateUtil.getDateTime(recordInfo.getCreateTime()));
                     break;
                 case 1:
                     switch (recordInfo.getCheckStatus()) {
