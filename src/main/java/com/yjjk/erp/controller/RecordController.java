@@ -5,9 +5,10 @@ import com.yjjk.erp.constant.ErrorCodeEnum;
 import com.yjjk.erp.constant.RateEnum;
 import com.yjjk.erp.constant.RecordEnum;
 import com.yjjk.erp.entity.bo.AddRateBO;
-import com.yjjk.erp.entity.bo.HospitalsInfoBO;
+import com.yjjk.erp.entity.bo.PageBO;
 import com.yjjk.erp.entity.pojo.ErpRecordInfo;
 import com.yjjk.erp.entity.vo.MyHospitalsVO;
+import com.yjjk.erp.entity.vo.PagedGridResult;
 import com.yjjk.erp.entity.vo.RecordsInfoVO;
 import com.yjjk.erp.utility.ResultUtil;
 import io.swagger.annotations.Api;
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: YjjkErp
@@ -34,9 +38,9 @@ public class RecordController extends BaseController {
 
     @ApiOperation("查询备案信息列表")
     @RequestMapping(value = "/records", method = RequestMethod.GET)
-    public CommonResult<List<RecordsInfoVO>> gerRecordsInfo(HospitalsInfoBO hospitalsInfoBO) {
+    public CommonResult<PagedGridResult<RecordsInfoVO>> gerRecordsInfo(@Valid PageBO pageBO) {
         try {
-            List<RecordsInfoVO> recordsInfo = super.recordService.getRecordsInfo();
+            PagedGridResult recordsInfo = super.recordService.getRecordsInfo(pageBO);
             return ResultUtil.returnSuccess(recordsInfo);
         } catch (Exception e) {
             logger.error("业务异常信息：[{}]", e.getMessage(), e);
@@ -97,15 +101,19 @@ public class RecordController extends BaseController {
     @ApiOperation("新增备案")
     @RequestMapping(value = "/record", method = RequestMethod.POST)
     public CommonResult addRecord(@RequestParam(value = "hospitalIds") List<Integer> hospitalIds,
-                                  @RequestParam(value = "companyId") Integer companyId) {
+                                  @RequestParam(value = "companyId") Integer companyId,
+                                  @RequestParam(value = "franchiserId") Integer franchiserId
+    ) {
         try {
             int count = 0;
             for (Integer hospitalId : hospitalIds) {
-//                int relation = super.companyService.getRelation(companyId, hospitalId);
-//                if (relation == 0){
-//                    return ResultUtil.returnError(ErrorCodeEnum.NON_COLLABORATE);
-//                }
-                count += super.recordService.addRecord(hospitalId, companyId);
+                Map<String, Object> map = new HashMap<>();
+                map.put("companyId",companyId);
+                int totalRecord = super.recordService.getRecordCount(map);
+                if (totalRecord + hospitalIds.size() >= 15){
+                    return ResultUtil.returnError("334", "已备案医院数不能超过15个！  当前备案医院数量："+totalRecord);
+                }
+                count += super.recordService.addRecord(hospitalId, companyId, franchiserId);
             }
             return ResultUtil.returnSuccess(count);
         } catch (Exception e) {
@@ -130,7 +138,7 @@ public class RecordController extends BaseController {
     @RequestMapping(value = "/rateType", method = RequestMethod.GET)
     public CommonResult getRateType() {
         try {
-            return ResultUtil.returnSuccess(RateEnum.getJson());
+            return ResultUtil.returnSuccess(RateEnum.getList());
         } catch (Exception e) {
             logger.error("业务异常信息：[{}]", e.getMessage(), e);
         }

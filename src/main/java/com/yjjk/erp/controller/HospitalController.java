@@ -2,7 +2,7 @@ package com.yjjk.erp.controller;
 
 import com.yjjk.erp.configer.CommonResult;
 import com.yjjk.erp.constant.ErrorCodeEnum;
-import com.yjjk.erp.entity.bo.HospitalsInfoBO;
+import com.yjjk.erp.entity.bo.PageBO;
 import com.yjjk.erp.entity.vo.AllHospitalsInfoVO;
 import com.yjjk.erp.entity.vo.HospitalsInfoVO;
 import com.yjjk.erp.entity.vo.ListVO;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,10 +32,10 @@ public class HospitalController extends BaseController {
 
     @ApiOperation("查询医院信息")
     @RequestMapping(value = "/hospital", method = RequestMethod.GET)
-    public CommonResult<PagedGridResult<HospitalsInfoVO>> getHospitalInfo(HospitalsInfoBO hospitalsInfoBO) {
+    public CommonResult<PagedGridResult<HospitalsInfoVO>> getHospitalInfo(@Valid PageBO pageBO) {
         try {
 
-            PagedGridResult hospitalInfo = super.hospitalService.getHospitalInfo(hospitalsInfoBO);
+            PagedGridResult hospitalInfo = super.hospitalService.getHospitalInfo(pageBO);
             return ResultUtil.returnSuccess(hospitalInfo);
         } catch (Exception e) {
             logger.error("业务异常信息：[{}]", e.getMessage(), e);

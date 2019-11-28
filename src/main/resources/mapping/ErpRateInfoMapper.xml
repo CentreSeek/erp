@@ -26,14 +26,18 @@
     </select>
 
     <select id="selectId" parameterType="com.yjjk.erp.entity.pojo.ErpRateInfo" resultType="java.lang.Integer">
-    SELECT id,name,departmentName,rateType,recordValidityDate from erp_rate_info where hospital_id = #{hospitalId, jdbcType=INTEGER} and rate_type = #{rateType, jdbcType=INTEGER}
+    SELECT id from erp_rate_info where hospital_id = #{hospitalId, jdbcType=INTEGER} and rate_type = #{rateType, jdbcType=INTEGER}
     order by create_time desc limit 0,1
     </select>
 
     <select id="getMyRate" resultType="com.yjjk.erp.entity.vo.MyRateVO" parameterType="java.lang.Integer">
-        SELECT eri.id, ehi.name, erai.department_name AS departmentName, erai.rate_type AS rateType,
+        SELECT ehi.id, ehi.name, erai.department_name AS departmentName, erai.rate_type AS rateType,
         CONCAT(eri.`start_date`,' ~ ',eri.`end_date`) AS recordValidityDate
-        FROM (SELECT * FROM erp_rate_info GROUP BY hospital_id ORDER BY create_time DESC) erai
+        FROM (SELECT b.id, b.create_time, b.update_time, b.STATUS, b.user_name, b.user_phone, b.hospital_id,
+         b.department_name, b.rate_type,b.content FROM (SELECT a.id, a.create_time, a.update_time, a.STATUS,
+          a.user_name, a.user_phone, a.hospital_id, a.department_name, a.rate_type,a.content FROM erp_rate_info a
+          ORDER BY a.create_time DESC LIMIT 1000) b GROUP BY b.hospital_id
+        ) erai
         LEFT JOIN `erp_record_info` eri ON eri.`rate_id` = erai.id
         LEFT JOIN `erp_hospital_info` ehi ON ehi.id = eri.`hospital_id`
         WHERE eri.`check_status` = 1 AND eri.`company_id` = #{companyId,jdbcType=INTEGER}

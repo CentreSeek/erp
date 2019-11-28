@@ -1,6 +1,6 @@
 package com.yjjk.erp.service;
 
-import com.yjjk.erp.entity.bo.HospitalsInfoBO;
+import com.yjjk.erp.entity.bo.PageBO;
 import com.yjjk.erp.entity.vo.AllHospitalsInfoVO;
 import com.yjjk.erp.entity.vo.ListVO;
 import com.yjjk.erp.entity.vo.MyHospitalsVO;
@@ -18,10 +18,10 @@ public interface HospitalService {
 
     /**
      * 获取医院信息
-     * @param hospitalsInfoBO
+     * @param pageBO
      * @return
      */
-    PagedGridResult getHospitalInfo(HospitalsInfoBO hospitalsInfoBO);
+    PagedGridResult getHospitalInfo(PageBO pageBO);
 
     /**
      * 获取所有医院信息

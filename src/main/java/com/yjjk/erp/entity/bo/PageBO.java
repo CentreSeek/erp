@@ -9,14 +9,14 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @program: YjjkErp
- * @description: 医院信息
+ * @description: 分页
  * @author: CentreS
  * @create: 2019-11-26 14:56:24
  **/
 @Data
 @Accessors(chain = true)
-@ApiModel("医院信息")
-public class HospitalsInfoBO {
+@ApiModel("分页")
+public class PageBO {
     @NotNull
     @ApiModelProperty(required = true)
     private Integer page;

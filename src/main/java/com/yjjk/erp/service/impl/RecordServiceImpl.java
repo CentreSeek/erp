@@ -1,9 +1,12 @@
 package com.yjjk.erp.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.yjjk.erp.constant.RecordEnum;
+import com.yjjk.erp.entity.bo.PageBO;
 import com.yjjk.erp.entity.pojo.ErpHospitalInfo;
 import com.yjjk.erp.entity.pojo.ErpRecordInfo;
 import com.yjjk.erp.entity.pojo.ErpRelationCompanyHospital;
+import com.yjjk.erp.entity.vo.PagedGridResult;
 import com.yjjk.erp.entity.vo.RecordsInfoVO;
 import com.yjjk.erp.service.BaseService;
 import com.yjjk.erp.service.RecordService;
@@ -15,6 +18,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: YjjkErp
@@ -25,8 +29,10 @@ import java.util.List;
 @Service
 public class RecordServiceImpl extends BaseService implements RecordService {
     @Override
-    public List<RecordsInfoVO> getRecordsInfo() {
-        return super.erpRecordInfoMapper.getRecordsInfo();
+    public PagedGridResult getRecordsInfo(PageBO pageBO) {
+        PageHelper.startPage(pageBO.getPage(), pageBO.getPageSize());
+        List<RecordsInfoVO> list = super.erpRecordInfoMapper.getRecordsInfo();
+        return setterPagedGrid(list, pageBO.getPage());
     }
 
     @Override
@@ -54,10 +60,11 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int addRecord(Integer hospitalId, Integer companyId) {
+    public int addRecord(Integer hospitalId, Integer companyId,Integer franchiserId) {
         ErpRecordInfo erpRecordInfo = new ErpRecordInfo();
         erpRecordInfo.setHospitalId(hospitalId);
         erpRecordInfo.setCompanyId(companyId);
+        erpRecordInfo.setFranchiserId(franchiserId);
         erpRecordInfo.setStartDate(DateUtil.getDate(new Date()));
         erpRecordInfo.setEndDate(DateUtil.getPassDate(DateUtil.getDate(new Date()),Calendar.MONTH,3));
         erpRecordInfo.setCheckStatus(0);
@@ -78,5 +85,10 @@ public class RecordServiceImpl extends BaseService implements RecordService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return i;
+    }
+
+    @Override
+    public int getRecordCount(Map<String, Object> map) {
+        return super.erpRecordInfoMapper.getRecordCount(map);
     }
 }

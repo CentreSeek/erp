@@ -19,9 +19,4 @@
         WHERE hospital_id = #{hospitalId,jdbcType=INTEGER};
   </select>
 
-    <select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(1)
-        from erp_relation_company_hospital
-        WHERE hospital_id = #{hospitalId,jdbcType=INTEGER} and company_id = #{companyId,jdbcType=INTEGER};
-  </select>
 </mapper>

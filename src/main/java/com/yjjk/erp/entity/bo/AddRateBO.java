@@ -35,4 +35,6 @@ public class AddRateBO {
     private String userPhone;
     @ApiModelProperty(value = "进度类型")
     private Integer rateType;
+    @ApiModelProperty(value = "具体内容")
+    private String content;
 }
