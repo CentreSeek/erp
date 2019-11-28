@@ -136,7 +136,7 @@
 		select
 		file_name
 		fileName,file_id fileId,
-		create_time createTime from
+		create_time createTime,down_url downUrl from
 		erp_file_info
 		where 1= 1
 		and status = 0

@@ -108,10 +108,11 @@ private static final Logger LOGGER = LoggerFactory.getLogger(FranchiserControlle
 	 */
     @ApiOperation("下载公司资料")
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public void getList(@ApiParam(value = "所需文件") @RequestParam(value = "ids") List<Integer> ids,HttpServletRequest request,HttpServletResponse response) {
+    public void getList(@ApiParam(value = "所需文件") @RequestParam(value = "ids") String ids,HttpServletRequest request,HttpServletResponse response) {
         try {
-        	for (Integer id : ids) {
-        		String name =contractService.getFile(id);
+        	String [] idList = ids.split(",");
+        	for (String id : idList) {
+        		String name =contractService.getFile(Integer.parseInt(id));
         		DownLoadFile.downloadFile(name,request,response);
 			}
         	

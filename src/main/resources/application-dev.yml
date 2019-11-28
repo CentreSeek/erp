@@ -37,7 +37,10 @@ spring:
   #        filters: stat
   #        connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   #        use-global-data-source-stat: true
-
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
