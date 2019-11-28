@@ -1,6 +1,7 @@
 package com.yjjk.erp.service;
 
 import com.yjjk.erp.entity.bo.AddRateBO;
+import com.yjjk.erp.entity.vo.MyRateVO;
 import com.yjjk.erp.entity.vo.RatesInfoVO;
 
 import java.util.List;
@@ -26,4 +27,11 @@ public interface RateService {
      * @return
      */
     int addRate(AddRateBO addRateBO);
+
+    /**
+     * 公司名下医院进度详情
+     * @param companyId
+     * @return
+     */
+    List<MyRateVO> getMyRate(Integer companyId);
 }

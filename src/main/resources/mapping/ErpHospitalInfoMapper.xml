@@ -49,4 +49,12 @@
     WHERE erch.company_id = #{companyId, jdbcType=INTEGER}
     ORDER BY erch.create_time desc
     </select>
+
+    <select id="getMyRate" resultType="com.yjjk.erp.entity.vo.MyHospitalsVO" parameterType="java.lang.Integer">
+    SELECT ehi.`id`,ehi.`name`, ehi.rate_type, ehi.create_time, ehi.update_time as objectTime
+    FROM  erp_hospital_info ehi
+    LEFT JOIN erp_relation_company_hospital erch ON ehi.`id` = erch.hospital_id
+    WHERE erch.company_id = #{companyId, jdbcType=INTEGER}
+    ORDER BY erch.create_time desc
+    </select>
 </mapper>

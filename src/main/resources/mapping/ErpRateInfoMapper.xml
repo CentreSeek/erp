@@ -18,13 +18,24 @@
     </resultMap>
 
     <select id="getRatesInfo" parameterType="java.lang.Integer" resultType="com.yjjk.erp.entity.vo.RatesInfoVO">
-    SELECT DATE_FORMAT(create_time,'%Y-%m-%d %H:%i') AS create_time, rate_type AS rate_type_int, content
-    FROM erp_rate_info WHERE hospital_id = #{hospitalId, jdbcType=INTEGER}
-    order by create_time desc
+     SELECT DATE_FORMAT(erai.create_time,'%Y-%m-%d %H:%i') AS create_time, erai.rate_type AS rate_type_int, erai.content
+    FROM erp_record_info eri
+    LEFT JOIN `erp_rate_info` erai ON eri.`rate_id` = erai.id
+     WHERE eri.hospital_id = #{hospitalId, jdbcType=INTEGER}
+    ORDER BY create_time DESC LIMIT 1
     </select>
 
     <select id="selectId" parameterType="com.yjjk.erp.entity.pojo.ErpRateInfo" resultType="java.lang.Integer">
-    SELECT id from erp_rate_info where hospital_id = #{hospitalId, jdbcType=INTEGER} and rate_type = #{rateType, jdbcType=INTEGER}
+    SELECT id,name,departmentName,rateType,recordValidityDate from erp_rate_info where hospital_id = #{hospitalId, jdbcType=INTEGER} and rate_type = #{rateType, jdbcType=INTEGER}
     order by create_time desc limit 0,1
+    </select>
+
+    <select id="getMyRate" resultType="com.yjjk.erp.entity.vo.MyRateVO" parameterType="java.lang.Integer">
+        SELECT eri.id, ehi.name, erai.department_name AS departmentName, erai.rate_type AS rateType,
+        CONCAT(eri.`start_date`,' ~ ',eri.`end_date`) AS recordValidityDate
+        FROM (SELECT * FROM erp_rate_info GROUP BY hospital_id ORDER BY create_time DESC) erai
+        LEFT JOIN `erp_record_info` eri ON eri.`rate_id` = erai.id
+        LEFT JOIN `erp_hospital_info` ehi ON ehi.id = eri.`hospital_id`
+        WHERE eri.`check_status` = 1 AND eri.`company_id` = #{companyId,jdbcType=INTEGER}
     </select>
 </mapper>
