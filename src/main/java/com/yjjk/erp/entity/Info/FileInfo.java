@@ -10,5 +10,7 @@ public class FileInfo {
 	private Integer fileId;
 	
 	private String fileName;
+	
+	private String createTime;
 
 }
